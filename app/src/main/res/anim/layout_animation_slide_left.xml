@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layoutAnimation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animation="@anim/item_animation_slide_left"
+    android:delay="10%"
+    android:animationOrder="normal"/>
+
+    <!-- Adds a start delay of 15% for each item that’s based on the duration of the item animation. -->

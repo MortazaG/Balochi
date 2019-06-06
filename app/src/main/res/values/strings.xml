@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Balochi</string>
+    <string name="category_image">Category Image</string>
+    <string name="image">image</string>
+    <string name="home">Home</string>
+    <string name="back">Back</string>
+
+    <string name="information">Information</string>
+    <string name="developer_title">Contact info:</string>
+    <string name="developer_info">isaContact19@gmail.com</string>
+    <string name="graphics_title">Graphics:</string>
+    <string name="graphics_credits">
+        Freepik - www.freepik.com from www.flaticon.com
+        \nSmashicons - www.flaticon.com/authors/smashicons
+        \nThose Icons - www.flaticon.com/authors/those-icons
+        \nVecteezy - www.vecteezy.com</string>
+    <string name="audio_title">Audio:</string>
+    <string name="audio_credits">
+        yummie @ freesound.org: www.freesound.org/people/yummie/sounds/209739/ licensed under https://creativecommons.org/licenses/by/3.0/
+        \nAll spoken sounds are licensed under https://creativecommons.org/licenses/by-nc/4.0/
+    </string>
+
+</resources>

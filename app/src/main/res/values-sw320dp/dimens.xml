@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="menuItem">200dp</dimen>
+    <dimen name="memoryCard">90dp</dimen>
+    <dimen name="countItem">80dp</dimen>
+    <dimen name="countImage">160dp</dimen>
+
+    <dimen name="standardMargin">16dp</dimen>
+    <dimen name="toolbarItem">40dp</dimen>
+    <dimen name="toolbarPadding">4dp</dimen>
+    <dimen name="menuPaddingLeft">48dp</dimen>
+    <dimen name="menuItemPadding">16dp</dimen>
+    <dimen name="gameItemsPadding">5dp</dimen>
+    <dimen name="gameItemsLargePadding">16dp</dimen>
+
+    <dimen name="contactInfo">15sp</dimen>
+    <dimen name="creditsTitle">15sp</dimen>
+    <dimen name="creditsText">10sp</dimen>
+</resources>

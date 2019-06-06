@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="slide_left_1300">1300</integer>
+    <integer name="slide_up_1000">1000</integer>
+</resources>

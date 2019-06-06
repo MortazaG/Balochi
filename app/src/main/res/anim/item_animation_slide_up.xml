@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/slide_up_1000">
+
+    <!-- Before the animation starts, move up the view by 100% of it’s own height, and let it fall down to its final position.-->
+    <translate
+        android:fromYDelta="250%p"
+        android:toYDelta="0"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        />
+
+    <!-- The scale is set to 105% to let it shrink down to it’s final size. This will make it appear as though it’s falling down, onto the background. -->
+    <scale
+        android:fromXScale="105%"
+        android:fromYScale="105%"
+        android:toXScale="100%"
+        android:toYScale="100%"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        />
+
+</set>
