@@ -1,5 +1,7 @@
 # Balochi
 
+All the graphics and audio for this project are under different licenses than GPL 3.0, which are referenced either below or on the creators respective website.
+
 ### Graphics:
 - Freepik - www.freepik.com from www.flaticon.com
 - Smashicons - www.flaticon.com/authors/smashicons
