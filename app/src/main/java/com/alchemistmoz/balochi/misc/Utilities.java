@@ -1,8 +1,6 @@
 package com.alchemistmoz.balochi.misc;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -244,15 +242,5 @@ public class Utilities {
             recyclerView.setLayoutAnimation(animation);
             recyclerView.setLayoutAnimationListener(animationListener);
         }
-    }
-
-    /**
-     * Get activity instance from desired context.
-     */
-    public static Activity getActivity(Context context) {
-        if (context == null) return null;
-        if (context instanceof Activity) return (Activity) context;
-        if (context instanceof ContextWrapper) return getActivity(((ContextWrapper)context).getBaseContext());
-        return null;
     }
 }
