@@ -24,6 +24,9 @@ public class Utilities {
     // Allows for "disabling" touch events
     private static boolean touchEnabled = true;
 
+    // To be used for delaying posts
+    private static Handler handler;
+
     /**
      * Prevent user from instantiating the class.
      */
@@ -146,7 +149,7 @@ public class Utilities {
             SoundPlayback.play(context, selectedCategory.getAudioResourceID());
 
             // Delay menu item touch execution so that the onTouchAnimation runs more smoothly
-            Handler handler = new Handler();
+            handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -161,6 +164,18 @@ public class Utilities {
 
                 }
             }, SoundPlayback.getSoundDuration());
+
+        }
+    }
+
+    /**
+     * Remove all pending posts of callbacks and sent messages.
+     */
+    public static void removePendingPosts() {
+
+        if (handler != null) {
+
+            handler.removeCallbacksAndMessages(null);
 
         }
     }
