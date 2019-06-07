@@ -208,7 +208,7 @@ public class CountGame {
             @Override
             public void onClick(View view) {
 
-                // Initialize playback of the sound related to the item the user has selected
+                // Initialize playback of the sound related to the current count
                 SoundPlayback.play(context, currentNumberItem.getAudioResourceID());
             }
         });
@@ -328,16 +328,28 @@ public class CountGame {
         if (countGoal == 10) {
 
             // Play long celebration sound
-            SoundPlayback.play(context, R.raw.celebration_short2);
+            playCelebrationSound(R.raw.celebration_short2);
 
             resetGame();
 
         } else if (countGoal < 10) {
 
             // Play short celebration sound
-            SoundPlayback.play(context, R.raw.celebration_short2);
+            playCelebrationSound(R.raw.celebration_short2);
 
             countGoal += 1;
+        }
+    }
+
+    /**
+     * Play the given celebration sound only if the window currently has focus.
+     *
+     * @param audioResourceId - Resource Id for the celebration sound to be played.
+     */
+    private void playCelebrationSound(int audioResourceId) {
+
+        if (recyclerView.hasWindowFocus()) {
+            SoundPlayback.play(context, audioResourceId);
         }
     }
 
