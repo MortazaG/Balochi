@@ -396,6 +396,11 @@ public class CountGame {
      * Remove all pending posts of callbacks and sent messages.
      */
     public void removePendingPosts() {
-        handler.removeCallbacksAndMessages(null);
+
+        if (handler != null) {
+
+            handler.removeCallbacksAndMessages(null);
+
+        }
     }
  }
