@@ -1,6 +1,5 @@
 package com.alchemistmoz.balochi.categories.numbers;
 
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -95,14 +94,17 @@ public class RepetitionActivity extends AppCompatActivity {
     }
 
     /**
-     * Clean up the media player when activity is paused.
+     * Clean up the media player and pending posts when activity is paused.
      */
     @Override
     protected void onPause() {
         super.onPause();
-        // When the activity is stopped, release the media player resources because we won't
-        // be playing any more sounds.
+        // Release the media player resources because we won't be playing any more sounds.
         SoundPlayback.releaseMediaPlayer();
+
+        // Remove all pending posts of callbacks and sent messages.
+        countGame.removePendingPosts();
+
 
     }
 }

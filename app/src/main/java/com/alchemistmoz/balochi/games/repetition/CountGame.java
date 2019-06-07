@@ -85,6 +85,9 @@ public class CountGame {
     // Allows for "disabling" touch events during sound playback
     private boolean touchEnabled;
 
+    // To be used for delaying posts
+    private Handler handler;
+
     /**
      * Sets the game off by initiating default values and the ArrayLists that will be used
      * in the game.
@@ -253,7 +256,8 @@ public class CountGame {
             selectedItem.setSelected(true);
 
             // Execute the following after sound playback
-            final Handler handler = new Handler();
+            handler = new Handler();
+
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -267,7 +271,6 @@ public class CountGame {
 
                 }
             }, SoundPlayback.getSoundDuration());
-
         }
     }
 
@@ -354,13 +357,10 @@ public class CountGame {
         currentNumberItem.setImageResourceID(numberItems.get(nextNrPos).getImageResourceID());
         currentNumberItem.setAudioResourceID(numberItems.get(nextNrPos).getAudioResourceID());
 
-        // Only run Glide if context hasn't changed
-        if (context != recyclerView.getContext()) {
-            Glide.with(numberImage.getContext())
-                    .load(numberItems.get(nextNrPos).getImageResourceID())
-                    .into(numberImage);
-        }
-
+        // Load the image for the currentNumberItem
+        Glide.with(numberImage.getContext())
+                .load(numberItems.get(nextNrPos).getImageResourceID())
+                .into(numberImage);
 
         // Reset the count
         count = 0;
@@ -390,5 +390,12 @@ public class CountGame {
     private void resetGame() {
         count = 0;
         countGoal = 1;
+    }
+
+    /**
+     * Remove all pending posts of callbacks and sent messages.
+     */
+    public void removePendingPosts() {
+        handler.removeCallbacksAndMessages(null);
     }
  }
