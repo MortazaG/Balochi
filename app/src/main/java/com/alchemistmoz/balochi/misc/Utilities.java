@@ -13,6 +13,7 @@ import android.view.animation.LayoutAnimationController;
 import com.alchemistmoz.balochi.Category;
 import com.alchemistmoz.balochi.MainAdapter;
 import com.alchemistmoz.balochi.R;
+import com.alchemistmoz.balochi.games.memory.MemoryGame;
 
 /**
  * Utilities class with various useful methods to be used
@@ -166,6 +167,22 @@ public class Utilities {
             }, SoundPlayback.getSoundDuration());
 
         }
+    }
+
+    public static void addMemoryCardClickSupport(RecyclerView recyclerView, final MemoryGame memoryGame) {
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                if (isTouchEnabled()) {
+                    // Show the front of the selected card at the given position
+                    memoryGame.revealCard(position);
+                }
+
+            }
+        });
+
     }
 
     /**
