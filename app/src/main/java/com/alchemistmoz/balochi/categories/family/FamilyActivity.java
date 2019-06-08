@@ -72,13 +72,18 @@ public class FamilyActivity extends AppCompatActivity {
     }
 
     /**
-     * Clean up the media player when activity is paused.
+     * Clean up the media player and remove pending posts
+     * when activity is paused.
      */
     @Override
     protected void onPause() {
         super.onPause();
-        // When the activity is stopped, release the media player resources because we won't
-        // be playing any more sounds.
+
+        // Release the media player resources
         SoundPlayback.releaseMediaPlayer();
+
+        // Remove all pending posts of callbacks and sent messages.
+        Utilities.removePendingPosts();
+
     }
 }

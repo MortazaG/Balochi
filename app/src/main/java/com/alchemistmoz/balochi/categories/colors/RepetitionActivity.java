@@ -122,14 +122,19 @@ public class RepetitionActivity extends AppCompatActivity {
     }
 
     /**
-     * Clean up the media player when activity is paused.
+     * Clean up the media player when activity is paused and remove
+     * the pending posts when activity is set to finish.
      */
     @Override
     protected void onPause() {
         super.onPause();
-        // When the activity is stopped, release the media player resources because we won't
-        // be playing any more sounds.
-        SoundPlayback.releaseMediaPlayer();
-    }
 
+        // Release the media player resources
+        SoundPlayback.releaseMediaPlayer();
+
+        if (isFinishing()) {
+            // Remove all pending posts of callbacks and sent messages.
+            repetitionGame.removePendingPosts();
+        }
+    }
 }
