@@ -142,8 +142,8 @@ public class RepetitionGame {
         currentIntroIndex += 1;
 
         // Enable touch events after sound playback
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        Handler introHandler = new Handler();
+        introHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 setTouchEnabled(true);
