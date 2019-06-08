@@ -3,10 +3,8 @@ package com.alchemistmoz.balochi.categories.colors;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.alchemistmoz.balochi.misc.CustomToolbar;
-import com.alchemistmoz.balochi.misc.ItemClickSupport;
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
 import com.alchemistmoz.balochi.misc.Utilities;
@@ -38,15 +36,7 @@ public class MemoryActivity extends AppCompatActivity {
 
         initiateGame();
 
-        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, final int position, View v) {
-
-                // Show the front of the selected card at the given position
-                memoryGame.revealCard(position);
-
-            }
-        });
+        Utilities.addMemoryCardClickSupport(recyclerView, memoryGame);
     }
 
     /**
