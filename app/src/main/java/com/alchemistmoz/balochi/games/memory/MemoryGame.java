@@ -95,6 +95,9 @@ public class MemoryGame {
     // Allows for "disabling" touch events during sound playback
     private boolean touchEnabled;
 
+    // To be used for delaying posts
+    private Handler handler;
+
     /**
      * Constructor that initiates the first round of the game.
      *
@@ -220,7 +223,7 @@ public class MemoryGame {
         }
 
         // Execute the following after sound playback
-        Handler handler = new Handler();
+        handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -319,41 +322,52 @@ public class MemoryGame {
         if (currentLevel == LEVEL_ONE) {
             currentLevel = LEVEL_TWO;
 
-            SoundPlayback.play(context, R.raw.celebration_short2);
+            playCelebrationSound();
 
             layoutManager.setSpanCount(3);
 
         } else if (currentLevel == LEVEL_TWO) {
             currentLevel = LEVEL_THREE;
 
-            SoundPlayback.play(context, R.raw.celebration_short2);
+            playCelebrationSound();
 
             layoutManager.setSpanCount(4);
 
         } else if (currentLevel == LEVEL_THREE){
             currentLevel = LEVEL_FOUR;
 
-            SoundPlayback.play(context, R.raw.celebration_short2);
+            playCelebrationSound();
 
         } else if (currentLevel == LEVEL_FOUR){
             currentLevel = LEVEL_FIVE;
 
-            SoundPlayback.play(context, R.raw.celebration_short2);
+            playCelebrationSound();
 
             layoutManager.setSpanCount(5);
 
         } else if (currentLevel == LEVEL_FIVE){
             currentLevel = LEVEL_SIX;
 
-            SoundPlayback.play(context, R.raw.celebration_short2);
+            playCelebrationSound();
 
             layoutManager.setSpanCount(5);
 
         } else {
-            SoundPlayback.play(context, R.raw.celebration_short2);
+            playCelebrationSound();
 
         }
     }
+
+    /**
+     * Play the celebration sound only if the window currently has focus.
+     */
+    private void playCelebrationSound() {
+
+        if (recyclerView.hasWindowFocus()) {
+            SoundPlayback.play(context, R.raw.celebration_short2);
+        }
+    }
+
 
     /**
      * Initiate the next level of the game by generating new memory cards and
@@ -409,6 +423,18 @@ public class MemoryGame {
         recyclerView.setLayoutManager(layoutManager);
 
         return recyclerView;
+    }
+
+    /**
+     * Remove all pending posts of callbacks and sent messages.
+     */
+    public void removePendingPosts() {
+
+        if (handler != null) {
+
+            handler.removeCallbacksAndMessages(null);
+
+        }
     }
 
 }
