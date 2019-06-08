@@ -22,7 +22,7 @@ import com.alchemistmoz.balochi.games.memory.MemoryGame;
  */
 public class Utilities {
 
-    // Allows for "disabling" touch events
+    // Allows for touch events to be temporarily disabled
     private static boolean touchEnabled = true;
 
     // To be used for delaying posts
@@ -36,10 +36,10 @@ public class Utilities {
     }
 
     /**
-     * @param status of touch events.
+     * @param enabled - Status of touch events.
      */
-    private static void setTouchEnabled(boolean status) {
-        touchEnabled = status;
+    private static void setTouchEnabled(boolean enabled) {
+        touchEnabled = enabled;
     }
 
     /**
