@@ -80,6 +80,9 @@ public class RepetitionGame {
     // Allows for "disabling" touch events during sound playback
     private boolean touchEnabled;
 
+    // To be used for delaying posts
+    private Handler handler;
+
     /**
      * Sets the game off by initiating default values and the ArrayLists that will be used
      * in the game.
@@ -196,7 +199,7 @@ public class RepetitionGame {
             selectedItem.setSelected(true);
 
             // Check game status and enable touch events after sound playback
-            final Handler handler = new Handler();
+            handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -286,4 +289,15 @@ public class RepetitionGame {
         recyclerView.scheduleLayoutAnimation();
     }
 
+    /**
+     * Remove all pending posts of callbacks and sent messages.
+     */
+    public void removePendingPosts() {
+
+        if (handler != null) {
+
+            handler.removeCallbacksAndMessages(null);
+
+        }
+    }
 }
