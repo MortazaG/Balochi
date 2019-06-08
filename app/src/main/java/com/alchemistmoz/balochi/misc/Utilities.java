@@ -13,14 +13,13 @@ import android.view.animation.LayoutAnimationController;
 import com.alchemistmoz.balochi.Category;
 import com.alchemistmoz.balochi.MainAdapter;
 import com.alchemistmoz.balochi.R;
-import com.alchemistmoz.balochi.games.memory.MemoryGame;
 
 /**
  * Utilities class with various useful methods to be used
  * across different activities.
  *
  */
-public class Utilities {
+public final class Utilities {
 
     // Allows for touch events to be temporarily disabled
     private static boolean touchEnabled = true;
@@ -80,36 +79,10 @@ public class Utilities {
     }
 
     /**
-     * Initializes the recycler view with GridLayoutManager.
+     * Add ItemClickSupport for menu items.
      *
-     * The contentView for the activity has to set a layout that contains the given
-     * recyclerViewId.
-     *
-     * @param activity - Can be either this or e.g. MainActivity.this.
-     * @param recyclerViewId - Id for the recycler view to use.
-     * @param spanCount - The spanCount to be used for the grid.
-     * @return recyclerView to be used for the adapter in the activity.
+     * @param recyclerView of the menu activity.
      */
-    public static RecyclerView initGridRecyclerView(AppCompatActivity activity, int recyclerViewId, int spanCount) {
-
-        // Store activity context
-        Context context = activity.getApplicationContext();
-
-        // Find and store the recycler view
-        RecyclerView recyclerView = activity.findViewById(recyclerViewId);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-
-        // A LayoutManager is responsible for measuring and positioning item views
-        // within a RecyclerView as well as determining the policy for when to recycle
-        // item views that are no longer visible to the user
-        recyclerView.setLayoutManager(new CustomGridLayoutManager(context, spanCount));
-
-        return recyclerView;
-    }
-
     public static void addMenuItemClickSupport(RecyclerView recyclerView) {
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -169,22 +142,6 @@ public class Utilities {
         }
     }
 
-    public static void addMemoryCardClickSupport(RecyclerView recyclerView, final MemoryGame memoryGame) {
-
-        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
-                if (isTouchEnabled()) {
-                    // Show the front of the selected card at the given position
-                    memoryGame.revealCard(position);
-                }
-
-            }
-        });
-
-    }
-
     /**
      * Remove all pending posts of callbacks and sent messages.
      */
@@ -219,38 +176,6 @@ public class Utilities {
      */
     public static void runSlideLeftAnim(final RecyclerView recyclerView) {
         int resId = R.anim.layout_animation_slide_left;
-        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(recyclerView.getContext(), resId);
-
-        Animation.AnimationListener animationListener = new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                setTouchEnabled(false);
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                setTouchEnabled(true);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        };
-
-        if (animation != null) {
-            recyclerView.setLayoutAnimation(animation);
-            recyclerView.setLayoutAnimationListener(animationListener);
-        }
-    }
-
-    /**
-     * This animation is used for recyclerView items in from bottom to top.
-     *
-     * @param recyclerView - The recyclerView to apply animation to
-     */
-    public static void runSlideUpAnim(RecyclerView recyclerView) {
-        int resId = R.anim.layout_animation_slide_up;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(recyclerView.getContext(), resId);
 
         Animation.AnimationListener animationListener = new Animation.AnimationListener() {
