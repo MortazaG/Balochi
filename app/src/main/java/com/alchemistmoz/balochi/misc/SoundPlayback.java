@@ -101,7 +101,11 @@ public final class SoundPlayback {
      * @return duration of sound in milliseconds.
      */
     public static int getSoundDuration() {
-        return mediaPlayer.getDuration();
+        if (mediaPlayer != null) {
+            return mediaPlayer.getDuration();
+        } else {
+            return 0;
+        }
     }
 
     /** Clean up the media player by releasing its resources */
