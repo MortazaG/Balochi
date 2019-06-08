@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.alchemistmoz.balochi.misc.CustomToolbar;
-import com.alchemistmoz.balochi.misc.Utilities;
+import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.games.memory.MemoryAdapter;
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
@@ -36,7 +36,7 @@ public class MemoryActivity extends AppCompatActivity {
 
         initiateGame();
 
-        Utilities.addMemoryCardClickSupport(recyclerView, memoryGame);
+        GameUtils.addMemoryCardClickSupport(recyclerView, memoryGame);
     }
 
     /**
@@ -76,7 +76,7 @@ public class MemoryActivity extends AppCompatActivity {
         // Set adapter to be used for the memory game
         memoryGame.useAdapter(adapter);
 
-        Utilities.runSlideUpAnim(recyclerView);
+        GameUtils.runSlideUpAnim(recyclerView);
 
     }
 

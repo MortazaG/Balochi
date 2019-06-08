@@ -6,11 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.ItemClickSupport;
 import com.alchemistmoz.balochi.misc.CustomToolbar;
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
-import com.alchemistmoz.balochi.misc.Utilities;
 import com.alchemistmoz.balochi.games.repetition.GameAdapter;
 import com.alchemistmoz.balochi.games.repetition.CountGame;
 
@@ -49,7 +49,7 @@ public class RepetitionActivity extends AppCompatActivity {
     private void initiateGame() {
 
         // Setup recycler view as a grid layout
-        recyclerView = Utilities.initGridRecyclerView(this, R.id.recycler_view_count_game, 3);
+        recyclerView = GameUtils.initGridRecyclerView(this, R.id.recycler_view_count_game, 3);
 
         // Find and store the image view so that it can be set by the count game
         ImageView numberImage = findViewById(R.id.number_image);
@@ -64,7 +64,7 @@ public class RepetitionActivity extends AppCompatActivity {
         // Set adapter to be used for updating the UI during the game
         countGame.useAdapter(adapter);
 
-        Utilities.runSlideUpAnim(recyclerView);
+        GameUtils.runSlideUpAnim(recyclerView);
 
     }
 

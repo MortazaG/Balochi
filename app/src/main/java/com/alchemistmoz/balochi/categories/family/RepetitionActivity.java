@@ -9,7 +9,7 @@ import com.alchemistmoz.balochi.misc.ItemClickSupport;
 import com.alchemistmoz.balochi.misc.CustomToolbar;
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
-import com.alchemistmoz.balochi.misc.Utilities;
+import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.games.repetition.GameAdapter;
 import com.alchemistmoz.balochi.games.repetition.GameItem;
 import com.alchemistmoz.balochi.games.repetition.RepetitionGame;
@@ -79,7 +79,7 @@ public class RepetitionActivity extends AppCompatActivity {
         familyItems.add(new GameItem(R.drawable.family_paunt1, R.raw.family_aunt));
 
         // Setup recycler view as a grid layout
-        recyclerView = Utilities.initGridRecyclerView(this, R.id.recycler_view_grid, 2);
+        recyclerView = GameUtils.initGridRecyclerView(this, R.id.recycler_view_grid, 2);
 
         // New instance of the game
         repetitionGame = new RepetitionGame(recyclerView, intros, familyItems);
@@ -91,7 +91,7 @@ public class RepetitionActivity extends AppCompatActivity {
         // Set adapter to be used for updating the UI during the game
         repetitionGame.useAdapter(adapter);
 
-        Utilities.runSlideUpAnim(recyclerView);
+        GameUtils.runSlideUpAnim(recyclerView);
 
     }
 
