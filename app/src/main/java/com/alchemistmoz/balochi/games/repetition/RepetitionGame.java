@@ -83,6 +83,9 @@ public class RepetitionGame {
     // To be used for delaying posts
     private Handler handler;
 
+    // Allow for delaying the intro for each round and thus providing a better user experience
+    private Runnable introRunnable;
+
     /**
      * Sets the game off by initiating default values and the ArrayLists that will be used
      * in the game.
@@ -102,12 +105,21 @@ public class RepetitionGame {
 
         touchEnabled = true;
 
+        handler = new Handler();
+        introRunnable = new Runnable() {
+            @Override
+            public void run() {
+                playCurrentRoundIntro();
+            }
+        };
+
         actualItems = new ArrayList<>();
 
         // Initiate the first round of the game with a list of actualItems
         generateActualItems();
 
-        playCurrentRoundIntro();
+        // Play intro for the current round
+        handler.postDelayed(introRunnable,300);
     }
 
     /**
@@ -135,15 +147,16 @@ public class RepetitionGame {
         // Disable touch events
         setTouchEnabled(false);
 
-        // Initialize playback of the intro
-        SoundPlayback.play(context, intros.get(currentIntroIndex).getAudioResourceID());
+        // Initialize playback of the intro if window is in focus
+        if (recyclerView.hasWindowFocus()) {
+            SoundPlayback.play(context, intros.get(currentIntroIndex).getAudioResourceID());
+        }
 
         // Increment index number with one, to be used for the next round
         currentIntroIndex += 1;
 
         // Enable touch events after sound playback
-        Handler introHandler = new Handler();
-        introHandler.postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 setTouchEnabled(true);
@@ -199,7 +212,6 @@ public class RepetitionGame {
             selectedItem.setSelected(true);
 
             // Check game status and enable touch events after sound playback
-            handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -265,7 +277,8 @@ public class RepetitionGame {
         // Run the slide up animation for the new items
         runLayoutAnimation();
 
-        playCurrentRoundIntro();
+        // Play intro for the current round
+        handler.postDelayed(introRunnable, 300);
 
     }
 
