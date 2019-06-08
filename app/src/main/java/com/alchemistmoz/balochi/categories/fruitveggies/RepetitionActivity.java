@@ -88,6 +88,8 @@ public class RepetitionActivity extends AppCompatActivity {
 
         // Set adapter to be used for updating the UI during the game
         repetitionGame.useAdapter(adapter);
+
+        Utilities.runSlideUpAnim(recyclerView);
     }
 
     /**
@@ -104,17 +106,6 @@ public class RepetitionActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    /**
-     * Override onResume in order to run the slide Animation
-     * after onCreate and onStart.
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Utilities.runSlideUpAnim(recyclerView);
     }
 
     /**

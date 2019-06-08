@@ -56,17 +56,8 @@ public class NumbersActivity extends AppCompatActivity {
         final MainAdapter adapter = new MainAdapter(this, categories);
         recyclerView.setAdapter(adapter);
 
-    }
-
-    /**
-     * Override onResume in order to run the slide Animation
-     * after onCreate and onStart.
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-
         Utilities.runSlideLeftAnim(recyclerView);
+
     }
 
     /**

@@ -87,17 +87,8 @@ public class MemoryActivity extends AppCompatActivity {
         // Set adapter to be used for the memory game
         memoryGame.useAdapter(adapter);
 
-    }
-
-    /**
-     * Override onResume in order to run the slide Animation
-     * after onCreate and onStart.
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-
         Utilities.runSlideUpAnim(recyclerView);
+
     }
 
     /**
