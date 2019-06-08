@@ -3,10 +3,8 @@ package com.alchemistmoz.balochi.categories.colors;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.alchemistmoz.balochi.misc.GameUtils;
-import com.alchemistmoz.balochi.misc.ItemClickSupport;
 import com.alchemistmoz.balochi.misc.CustomToolbar;
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
@@ -39,7 +37,7 @@ public class RepetitionActivity extends AppCompatActivity {
 
         initiateGame();
 
-        addItemClickSupport();
+        GameUtils.addRepetitionItemClickSupport(recyclerView, repetitionGame);
     }
 
     /**
@@ -94,22 +92,6 @@ public class RepetitionActivity extends AppCompatActivity {
         repetitionGame.useAdapter(adapter);
 
         GameUtils.runSlideUpAnim(recyclerView);
-    }
-
-    /**
-     * Add click support for the game, by animating touch events and calling upon
-     * repetitionGame.selectItem(position).
-     */
-    private void addItemClickSupport() {
-
-        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
-                repetitionGame.selectItem(position, v);
-
-            }
-        });
     }
 
     /**

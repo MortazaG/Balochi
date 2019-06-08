@@ -10,6 +10,8 @@ import android.view.animation.LayoutAnimationController;
 
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.games.memory.MemoryGame;
+import com.alchemistmoz.balochi.games.repetition.CountGame;
+import com.alchemistmoz.balochi.games.repetition.RepetitionGame;
 
 /**
  * Utilities class with various useful methods to be used
@@ -71,6 +73,42 @@ public final class GameUtils {
         recyclerView.setLayoutManager(new CustomGridLayoutManager(context, spanCount));
 
         return recyclerView;
+    }
+
+    /**
+     * Add ItemClickSupport for the count game items.
+     *
+     * @param recyclerView of the RepetitionActivity.
+     * @param countGame instance of the game.
+     */
+    public static void addCountItemClickSupport(RecyclerView recyclerView, final CountGame countGame) {
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                countGame.selectItem(position, v);
+
+            }
+        });
+    }
+
+    /**
+     * Add ItemClickSupport for the repetition game items.
+     *
+     * @param recyclerView of the RepetitionActivity.
+     * @param repetitionGame instance of the game.
+     */
+    public static void addRepetitionItemClickSupport(RecyclerView recyclerView, final RepetitionGame repetitionGame) {
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                repetitionGame.selectItem(position, v);
+
+            }
+        });
     }
 
     /**
