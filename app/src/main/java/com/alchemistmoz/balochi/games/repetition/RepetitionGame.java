@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
 import com.alchemistmoz.balochi.R;
+import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
 import com.alchemistmoz.balochi.misc.Utilities;
 
@@ -77,9 +78,6 @@ public class RepetitionGame {
     // Used to store the context of the activity
     private Context context;
 
-    // Allows for "disabling" touch events during sound playback
-    private boolean touchEnabled;
-
     // To be used for delaying posts
     private Handler handler;
 
@@ -102,8 +100,6 @@ public class RepetitionGame {
         nrOfSelectedItems = 0;
         totalNrOfSelectedItems = 0;
         currentIntroIndex = 0;
-
-        touchEnabled = true;
 
         handler = new Handler();
         introRunnable = new Runnable() {
@@ -145,7 +141,7 @@ public class RepetitionGame {
     private void playCurrentRoundIntro() {
 
         // Disable touch events
-        setTouchEnabled(false);
+        GameUtils.setTouchEnabled(false);
 
         // Initialize playback of the intro if window is in focus
         if (recyclerView.hasWindowFocus()) {
@@ -159,7 +155,7 @@ public class RepetitionGame {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                setTouchEnabled(true);
+                GameUtils.setTouchEnabled(true);
             }
         }, SoundPlayback.getSoundDuration());
 
@@ -192,10 +188,10 @@ public class RepetitionGame {
         // Store the gameItem that the user has currently selected
         GameItem selectedItem = actualItems.get(position);
 
-        if (isTouchEnabled() && !selectedItem.isSelected()) {
+        if (GameUtils.isTouchEnabled() && !selectedItem.isSelected()) {
 
             // Disable further touch events
-            setTouchEnabled(false);
+            GameUtils.setTouchEnabled(false);
 
             Utilities.runOnTouchAnim(context, view);
 
@@ -216,7 +212,7 @@ public class RepetitionGame {
                 @Override
                 public void run() {
 
-                    setTouchEnabled(true);
+                    GameUtils.setTouchEnabled(true);
 
                     // Update the UI
                     viewAdapter.notifyItemChanged(position);
@@ -227,21 +223,6 @@ public class RepetitionGame {
             }, SoundPlayback.getSoundDuration());
         }
     }
-
-    /**
-     * @param status of touch events.
-     */
-    private void setTouchEnabled(boolean status) {
-        touchEnabled = status;
-    }
-
-    /**
-     * @return current status of touch events.
-     */
-    private boolean isTouchEnabled() {
-        return touchEnabled;
-    }
-
 
     /**
      * Check the current status of the game. If both items have been selected,

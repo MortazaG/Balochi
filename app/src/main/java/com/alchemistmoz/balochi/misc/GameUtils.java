@@ -33,14 +33,14 @@ public final class GameUtils {
     /**
      * @param enabled - Status of touch events.
      */
-    private static void setTouchEnabled(boolean enabled) {
+    public static void setTouchEnabled(boolean enabled) {
         touchEnabled = enabled;
     }
 
     /**
      * @return current status of touch events.
      */
-    private static boolean isTouchEnabled() {
+    public static boolean isTouchEnabled() {
         return touchEnabled;
     }
 

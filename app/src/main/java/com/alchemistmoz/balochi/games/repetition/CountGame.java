@@ -9,6 +9,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 
 import com.alchemistmoz.balochi.R;
+import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
 import com.alchemistmoz.balochi.misc.Utilities;
 import com.bumptech.glide.Glide;
@@ -82,9 +83,6 @@ public class CountGame {
     // Used to store the context of the activity
     private Context context;
 
-    // Allows for "disabling" touch events during sound playback
-    private boolean touchEnabled;
-
     // To be used for delaying posts
     private Handler handler;
 
@@ -106,7 +104,6 @@ public class CountGame {
 
         count = 0;
         countGoal = 1;
-        touchEnabled = true;
 
         // Initiate the lists that will be used for the game
         initiateLists();
@@ -239,10 +236,10 @@ public class CountGame {
         // Store the gameItem that the user has currently selected
         GameItem selectedItem = actualItems.get(position);
 
-        if (isTouchEnabled() && !selectedItem.isSelected()) {
+        if (GameUtils.isTouchEnabled() && !selectedItem.isSelected()) {
 
             // Disable further touch events
-            setTouchEnabled(false);
+            GameUtils.setTouchEnabled(false);
 
             Utilities.runOnTouchAnim(context, view);
 
@@ -262,7 +259,7 @@ public class CountGame {
                 @Override
                 public void run() {
 
-                    setTouchEnabled(true);
+                    GameUtils.setTouchEnabled(true);
 
                     // Update the UI
                     viewAdapter.notifyItemChanged(position);
@@ -272,20 +269,6 @@ public class CountGame {
                 }
             }, SoundPlayback.getSoundDuration());
         }
-    }
-
-    /**
-     * @param status of touch events.
-     */
-    private void setTouchEnabled(boolean status) {
-        touchEnabled = status;
-    }
-
-    /**
-     * @return current status of touch events.
-     */
-    private boolean isTouchEnabled() {
-        return touchEnabled;
     }
 
     /**
