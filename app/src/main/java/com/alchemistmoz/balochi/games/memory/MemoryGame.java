@@ -364,7 +364,7 @@ public class MemoryGame {
     private void playCelebrationSound() {
 
         if (recyclerView.hasWindowFocus()) {
-            SoundPlayback.play(context, R.raw.celebration_short2);
+            SoundPlayback.play(context, R.raw.celebration_short);
         }
     }
 

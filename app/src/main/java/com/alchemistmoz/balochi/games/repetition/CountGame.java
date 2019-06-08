@@ -328,14 +328,14 @@ public class CountGame {
         if (countGoal == 10) {
 
             // Play long celebration sound
-            playCelebrationSound(R.raw.celebration_short2);
+            playCelebrationSound(R.raw.celebration_short);
 
             resetGame();
 
         } else if (countGoal < 10) {
 
             // Play short celebration sound
-            playCelebrationSound(R.raw.celebration_short2);
+            playCelebrationSound(R.raw.celebration_short);
 
             countGoal += 1;
         }
