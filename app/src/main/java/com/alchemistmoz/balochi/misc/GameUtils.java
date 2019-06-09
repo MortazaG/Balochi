@@ -20,6 +20,11 @@ import com.alchemistmoz.balochi.games.repetition.RepetitionGame;
  */
 public final class GameUtils {
 
+    // All the available games
+    public final static int REPETITION = 0;
+    public final static int COUNT = 1;
+    public final static int MEMORY = 2;
+
     // Allows for touch events to be temporarily disabled
     private static boolean touchEnabled = true;
 
@@ -124,11 +129,8 @@ public final class GameUtils {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
-                if (isTouchEnabled()) {
-                    // Show the front of the selected card at the given position
-                    memoryGame.revealCard(position);
-                }
-
+                // Show the front of the selected card at the given position
+                memoryGame.selectCard(position);
             }
         });
     }
@@ -138,19 +140,29 @@ public final class GameUtils {
      *
      * @param recyclerView - The recyclerView to apply animation to
      */
-    public static void runSlideUpAnim(RecyclerView recyclerView) {
+    public static void runSlideUpAnim(RecyclerView recyclerView, final int game) {
         int resId = R.anim.layout_animation_slide_up;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(recyclerView.getContext(), resId);
 
         Animation.AnimationListener animationListener = new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                setTouchEnabled(false);
+
+                if (game == MEMORY) {
+                    setTouchEnabled(false);
+                } else if (game == COUNT) {
+                    setTouchEnabled(false);
+                }
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                setTouchEnabled(true);
+
+                if (game == MEMORY) {
+                    setTouchEnabled(true);
+                } else if (game == COUNT) {
+                    setTouchEnabled(true);
+                }
             }
 
             @Override

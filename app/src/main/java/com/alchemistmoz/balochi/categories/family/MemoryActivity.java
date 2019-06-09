@@ -78,7 +78,7 @@ public class MemoryActivity extends AppCompatActivity {
         // Set adapter to be used for the memory game
         memoryGame.useAdapter(adapter);
 
-        GameUtils.runSlideUpAnim(recyclerView);
+        GameUtils.runSlideUpAnim(recyclerView, GameUtils.MEMORY);
 
     }
 

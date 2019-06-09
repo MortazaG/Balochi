@@ -227,7 +227,7 @@ public class CountGame {
 
     /**
      * Play the sound of the selected item and make it INVISIBLE,
-     *  then check for the current status of the game.
+     * then check for the current status of the game.
      *
      * @param position - of the view that the user has selected
      */

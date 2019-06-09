@@ -114,8 +114,11 @@ public class RepetitionGame {
         // Initiate the first round of the game with a list of actualItems
         generateActualItems();
 
+        // Disable touch during intro
+        GameUtils.setTouchEnabled(false);
+
         // Play intro for the current round
-        handler.postDelayed(introRunnable,300);
+        handler.postDelayed(introRunnable,800);
     }
 
     /**
@@ -139,9 +142,6 @@ public class RepetitionGame {
      * Play a descriptive sound intro for the items of the current round.
      */
     private void playCurrentRoundIntro() {
-
-        // Disable touch events
-        GameUtils.setTouchEnabled(false);
 
         // Initialize playback of the intro if window is in focus
         if (recyclerView.hasWindowFocus()) {
@@ -179,7 +179,7 @@ public class RepetitionGame {
 
     /**
      * Play the sound of the selected item and make it INVISIBLE,
-     *  then check for the current status of the game.
+     * then check for the current status of the game.
      *
      * @param position - of the view that the user has selected
      */
@@ -258,8 +258,11 @@ public class RepetitionGame {
         // Run the slide up animation for the new items
         runLayoutAnimation();
 
+        // Disable touch during intro
+        GameUtils.setTouchEnabled(false);
+
         // Play intro for the current round
-        handler.postDelayed(introRunnable, 300);
+        handler.postDelayed(introRunnable, 800);
 
     }
 

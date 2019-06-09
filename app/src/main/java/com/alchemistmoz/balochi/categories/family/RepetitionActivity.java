@@ -89,7 +89,7 @@ public class RepetitionActivity extends AppCompatActivity {
         // Set adapter to be used for updating the UI during the game
         repetitionGame.useAdapter(adapter);
 
-        GameUtils.runSlideUpAnim(recyclerView);
+        GameUtils.runSlideUpAnim(recyclerView, GameUtils.REPETITION);
 
     }
 

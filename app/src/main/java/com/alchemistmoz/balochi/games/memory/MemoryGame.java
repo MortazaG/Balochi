@@ -10,6 +10,7 @@ import android.view.animation.LayoutAnimationController;
 
 import com.alchemistmoz.balochi.misc.CustomGridLayoutManager;
 import com.alchemistmoz.balochi.R;
+import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ import java.util.Collections;
  * - Set the adapter for the recyclerView with .setAdapter(adapter) and for the game with
  *   .useAdapter(adapter).
  *
- * - Use ItemClickSupport so that all objects that are selected trigger memoryGame.revealCard(pos).
+ * - Use ItemClickSupport so that all objects that are selected trigger memoryGame.selectCard(pos).
  *
  * The game generates a list of memory card back sides (placeholders ) to hide all the cards,
  * as well as a list of memory card front sides, which are shown when the user selects a card.
@@ -92,9 +93,6 @@ public class MemoryGame {
     // Context of the activity from which the memory game is run
     private Context context;
 
-    // Allows for "disabling" touch events during sound playback
-    private boolean touchEnabled;
-
     // To be used for delaying posts
     private Handler handler;
 
@@ -109,8 +107,6 @@ public class MemoryGame {
 
         // Context of the activity the game is run from
         context = recyclerView.getContext();
-
-        touchEnabled = true;
 
         // testMode(LEVEL_SIX, 5);
 
@@ -176,82 +172,81 @@ public class MemoryGame {
     }
 
     /**
-     * Reveal the selected card and play its correlated sound, then check
-     * if a pair match has been made.
+     * Reveal the selected card and check if a pair match has been made.
      *
-     * @param position - of the view that the user has selected
+     * @param position of the view that the user has selected
      */
-    public void revealCard(int position) {
+    public void selectCard(int position) {
 
-        MemoryCard currentSelection = memoryCardItems.get(position);
+        MemoryCard selectedCard = memoryCardItems.get(position);
 
+        if (GameUtils.isTouchEnabled()) {
+
+            // Disable further touch events
+            GameUtils.setTouchEnabled(false);
+
+            revealCard(selectedCard, position);
+
+            // Execute the following after sound playback
+            handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    GameUtils.setTouchEnabled(true);
+                    checkSelections();
+
+                }
+            }, SoundPlayback.getSoundDuration());
+
+        }
+
+    }
+
+    /**
+     * Reveal and play the sound of the selected card.
+     *
+     * @param selectedCard from the user input.
+     * @param position of the view that the user has selected.
+     */
+    private void revealCard(MemoryCard selectedCard, int position) {
         // Check status of selectionOne, if less than 0, it means that
         // we're in a new round of selections.
-        if (selectionOne < 0 && isTouchEnabled()) {
+        if (selectionOne < 0) {
 
             // Reveal the card at the selected position
-            memoryCardPlaceholders.get(position).setImageResourceID(currentSelection.getImageResourceID());
+            memoryCardPlaceholders.get(position).setImageResourceID(selectedCard.getImageResourceID());
 
-            SoundPlayback.play(context, currentSelection.getAudioResourceID());
+            SoundPlayback.play(context, selectedCard.getAudioResourceID());
 
             // Store info about current selection
-            selectionOne = currentSelection.getImageResourceID();
+            selectionOne = selectedCard.getImageResourceID();
             positionOne = position;
 
             viewAdapter.notifyItemChanged(position);
 
-            // Disable further touch events
-            setTouchEnabled(false);
-
             // selectionOne > 0 true indicates that one card has already been selected,
             // second card is being selected.
-        } else if ((selectionOne > 0 && selectionTwo < 0) && isTouchEnabled()) {
+        } else if (selectionOne > 0 && selectionTwo < 0) {
 
             // Reveal the card at the selected position
-            memoryCardPlaceholders.get(position).setImageResourceID(currentSelection.getImageResourceID());
+            memoryCardPlaceholders.get(position).setImageResourceID(selectedCard.getImageResourceID());
 
-            SoundPlayback.play(context, currentSelection.getAudioResourceID());
+            SoundPlayback.play(context, selectedCard.getAudioResourceID());
 
             // Store info about current selection
-            selectionTwo = currentSelection.getImageResourceID();
+            selectionTwo = selectedCard.getImageResourceID();
             positionTwo = position;
 
             viewAdapter.notifyItemChanged(position);
 
-            // Disable further touch events
-            setTouchEnabled(false);
         }
 
-        // Execute the following after sound playback
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                setTouchEnabled(true);
-                checkSelections();
-
-            }
-        }, SoundPlayback.getSoundDuration());
-
-    }
-
-    /**
-     * @param status of touch events.
-     */
-    private void setTouchEnabled(boolean status) {
-        touchEnabled = status;
-    }
-
-    /**
-     * @return current status of touch events.
-     */
-    private boolean isTouchEnabled() {
-        return touchEnabled;
     }
 
     /**
      * Check if the selected cards are a match and make them INVISIBLE if true.
+     * Check the current status of the game if a match has been made.
      */
     private void checkSelections() {
 
