@@ -45,14 +45,14 @@ public class GameItem {
      *
      * @param newImageResourceId - Image resource ID e.g. R.drawable.xxx.
      */
-    void setImageResourceID(int newImageResourceId) {
+    public void setImageResourceID(int newImageResourceId) {
         imageResourceId = newImageResourceId;
     }
 
     /**
      * @return The image resource ID
      */
-    int getImageResourceID() {
+    public int getImageResourceID() {
         return imageResourceId;
     }
 
@@ -61,14 +61,14 @@ public class GameItem {
      *
      * @param newAudioResourceId - Image resource ID e.g. R.drawable.xxx.
      */
-    void setAudioResourceID(int newAudioResourceId) {
+    public void setAudioResourceID(int newAudioResourceId) {
         audioResourceId = newAudioResourceId;
     }
 
     /**
      * @return The audio resource ID
      */
-    int getAudioResourceID() {
+    public int getAudioResourceID() {
         return audioResourceId;
     }
 
