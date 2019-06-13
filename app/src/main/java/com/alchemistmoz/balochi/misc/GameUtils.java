@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
 import com.alchemistmoz.balochi.R;
+import com.alchemistmoz.balochi.games.audiomatch.AudioMatchGame;
 import com.alchemistmoz.balochi.games.memory.MemoryGame;
 import com.alchemistmoz.balochi.games.repetition.CountGame;
 import com.alchemistmoz.balochi.games.repetition.RepetitionGame;
@@ -131,6 +132,24 @@ public final class GameUtils {
 
                 // Show the front of the selected card at the given position
                 memoryGame.selectCard(position);
+            }
+        });
+    }
+
+    /**
+     * Add ItemClickSupport for AudioMatch game items.
+     *
+     * @param recyclerView of the RepetitionActivity.
+     * @param audioMatchGame instance of the game.
+     */
+    public static void addGameItemClickSupport(RecyclerView recyclerView, final AudioMatchGame audioMatchGame) {
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                audioMatchGame.selectItem(position, v);
+
             }
         });
     }
