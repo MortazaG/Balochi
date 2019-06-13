@@ -15,7 +15,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name="com.alchemistmoz.balochi.MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,66 +26,69 @@
 
         <!-- Numbers Activity -->
         <activity
-            android:name="com.alchemistmoz.balochi.categories.numbers.NumbersActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.MainActivity"
+            android:name=".categories.numbers.NumbersActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="com.alchemistmoz.balochi.categories.numbers.RepetitionActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.categories.numbers.NumbersActivity"
+            android:name=".categories.numbers.RepetitionActivity"
+            android:parentActivityName=".categories.numbers.NumbersActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="com.alchemistmoz.balochi.categories.numbers.MemoryActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.categories.numbers.NumbersActivity"
+            android:name=".categories.numbers.MemoryActivity"
+            android:parentActivityName=".categories.numbers.NumbersActivity"
             android:screenOrientation="sensorLandscape" />
 
         <!-- Colors Activity -->
         <activity
-            android:name="com.alchemistmoz.balochi.categories.colors.ColorsActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.MainActivity"
+            android:name=".categories.colors.ColorsActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="com.alchemistmoz.balochi.categories.colors.RepetitionActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.categories.colors.ColorsActivity"
+            android:name=".categories.colors.RepetitionActivity"
+            android:parentActivityName=".categories.colors.ColorsActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="com.alchemistmoz.balochi.categories.colors.MemoryActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.categories.colors.ColorsActivity"
+            android:name=".categories.colors.MemoryActivity"
+            android:parentActivityName=".categories.colors.ColorsActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".categories.colors.AudioMatchActivity"
+            android:parentActivityName=".categories.colors.ColorsActivity"
             android:screenOrientation="sensorLandscape" />
 
         <!-- Family Activity -->
         <activity
-            android:name="com.alchemistmoz.balochi.categories.family.FamilyActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.MainActivity"
+            android:name=".categories.family.FamilyActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="com.alchemistmoz.balochi.categories.family.RepetitionActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.categories.family.FamilyActivity"
+            android:name=".categories.family.RepetitionActivity"
+            android:parentActivityName=".categories.family.FamilyActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="com.alchemistmoz.balochi.categories.family.MemoryActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.categories.family.FamilyActivity"
+            android:name=".categories.family.MemoryActivity"
+            android:parentActivityName=".categories.family.FamilyActivity"
             android:screenOrientation="sensorLandscape" />
 
         <!-- FruitVeggies Activity -->
         <activity
-            android:name="com.alchemistmoz.balochi.categories.fruitveggies.FruitVeggiesActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.MainActivity"
+            android:name=".categories.fruitveggies.FruitVeggiesActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="com.alchemistmoz.balochi.categories.fruitveggies.RepetitionActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.categories.fruitveggies.FruitVeggiesActivity"
+            android:name=".categories.fruitveggies.RepetitionActivity"
+            android:parentActivityName=".categories.fruitveggies.FruitVeggiesActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="com.alchemistmoz.balochi.categories.fruitveggies.MemoryActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.categories.fruitveggies.FruitVeggiesActivity"
+            android:name=".categories.fruitveggies.MemoryActivity"
+            android:parentActivityName=".categories.fruitveggies.FruitVeggiesActivity"
             android:screenOrientation="sensorLandscape" />
 
         <!-- Information Activity -->
         <activity
-            android:name="com.alchemistmoz.balochi.InfoActivity"
-            android:parentActivityName="com.alchemistmoz.balochi.MainActivity"
-            android:screenOrientation="sensorLandscape"/>
-
+            android:name=".InfoActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>
