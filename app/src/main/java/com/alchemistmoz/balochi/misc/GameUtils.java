@@ -142,7 +142,7 @@ public final class GameUtils {
      * @param recyclerView of the RepetitionActivity.
      * @param audioMatchGame instance of the game.
      */
-    public static void addGameItemClickSupport(RecyclerView recyclerView, final AudioMatchGame audioMatchGame) {
+    public static void addAudioMatchItemClickSupport(RecyclerView recyclerView, final AudioMatchGame audioMatchGame) {
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
