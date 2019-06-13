@@ -92,7 +92,7 @@ public class AudioMatchGame {
      *
      * @param recyclerView - The games recyclerView
      */
-    public AudioMatchGame(RecyclerView recyclerView, ArrayList<GameItem> intros, ArrayList<GameItem> gameItems) {
+    public AudioMatchGame(RecyclerView recyclerView, ArrayList<GameItem> gameItems) {
         this.recyclerView = recyclerView;
         this.intros = intros;
         this.gameItems = gameItems;
