@@ -17,6 +17,7 @@ import com.alchemistmoz.balochi.misc.Utilities;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -55,11 +56,18 @@ import java.util.ArrayList;
  */
 public class AudioMatchGame {
 
-    // The users guess of the correctItem
-    private int selectedItem;
+    // All the available levels in the game
+    private static final int LEVEL_ONE = 2;
+    private static final int LEVEL_TWO = 4;
+
+    // Current level in the game
+    private int currentLevel;
+
+    // The users guess of the correctItemId
+    private int selectedItemId;
 
     // Store the current rounds correct word
-    private int correctItem;
+    private int correctItemId;
 
     // The gameItems that will be used for generating an actualItems list
     private ArrayList<GameItem> gameItems;
@@ -97,35 +105,24 @@ public class AudioMatchGame {
 
         context = recyclerView.getContext();
 
+        // Start the game of with the first level
+        currentLevel = LEVEL_ONE;
+
+        // Placeholder for the sound of the correctItemId
         speakerPhoneObject = new GameItem(R.drawable.colors3, R.raw.menu_colors);
 
-        selectedItem = 0;
-        correctItem = 0;
+        correctItemId = 0;
+        selectedItemId = 0;
 
         handler = new Handler();
 
         actualItems = new ArrayList<>();
 
-        // Initiate the first round of the game with a list of actualItems
+        // Initiate the first round of the game
+        initiateSpeakerPhoneView();
         generateActualItems();
     }
 
-    /**
-     * Generate the game Items that will be used to interact with in the game for one round.
-     */
-    private void generateActualItems() {
-
-        for (int x = 0; x < 2; x++) {
-
-            // The correctItem allows for going through the gameItems in concurrent order
-            int index = x + correctItem;
-
-            GameItem currentItem = gameItems.get(index);
-
-            // Add a new instance of the current item
-            actualItems.add(new GameItem(currentItem.getImageResourceID(), currentItem.getAudioResourceID()));
-        }
-    }
 
     /**
      * Set the speaker phone image to be shown to the top and
@@ -143,10 +140,36 @@ public class AudioMatchGame {
             @Override
             public void onClick(View view) {
 
-                // Initialize playback of the sound of the correctItem
+                // Initialize playback of the sound of the correctItemId
                 SoundPlayback.play(context, speakerPhoneObject.getAudioResourceID());
             }
         });
+    }
+
+    /**
+     * Generate the game Items that will be used to interact with in the game for one round.
+     */
+    private void generateActualItems() {
+
+        // Shuffle the game items in order to randomize the words of
+        // each new round.
+        Collections.shuffle(gameItems);
+
+        // Generate list of items to be used for the current level
+        for (int x = 0; x < currentLevel; x++) {
+
+            GameItem currentItem = gameItems.get(x);
+
+            // Add a new instance of the current item
+            actualItems.add(new GameItem(currentItem.getImageResourceID(), currentItem.getAudioResourceID()));
+        }
+
+        // First item in the list is chosen as the correct word item
+        correctItemId = actualItems.get(0).getAudioResourceID();
+
+        // Shuffle list again so that they are presented
+        // in a random order.
+        Collections.shuffle(actualItems);
     }
 
     /**
@@ -176,24 +199,18 @@ public class AudioMatchGame {
         // Store the gameItem that the user has currently selected
         GameItem selectedItem = actualItems.get(position);
 
-        if (GameUtils.isTouchEnabled() && !selectedItem.isSelected()) {
+        if (GameUtils.isTouchEnabled()) {
 
             // Disable further touch events
             GameUtils.setTouchEnabled(false);
 
             Utilities.runOnTouchAnim(context, view);
 
-            // Increase the number of selected items for this round
-            this.selectedItem += 1;
-
-            // Incrementally increase the total number of selected items
-            correctItem += 1;
-
             // Initialize playback of the sound related to the item the user has selected
-//            SoundPlayback.play(context, selectedItem.getAudioResourceID());
+            SoundPlayback.play(context, selectedItem.getAudioResourceID());
 
-            // Set selected to true so that visibility changes to INVISIBLE
-            selectedItem.setSelected(true);
+            // Store the resource id for the selected item
+            selectedItemId = selectedItem.getAudioResourceID();
 
             // Check game status and enable touch events after sound playback
             handler.postDelayed(new Runnable() {
@@ -201,11 +218,7 @@ public class AudioMatchGame {
                 public void run() {
 
                     GameUtils.setTouchEnabled(true);
-
-                    // Update the UI
-                    viewAdapter.notifyItemChanged(position);
-
-                    checkGameStatus();
+                    checkSelections();
 
                 }
             }, SoundPlayback.getSoundDuration());
@@ -213,12 +226,22 @@ public class AudioMatchGame {
     }
 
     /**
-     * Check the current status of the game. If both items have been selected,
-     * then bring the next two i.e. start the next round.
+     * Check if the selected items are a match.
      */
-    private void checkGameStatus() {
-        if (selectedItem >= 2) {
+    private void checkSelections() {
+        if (selectedItemId == correctItemId) {
+
+            // Celebrate and initiate the next round
+            SoundPlayback.play(context, R.raw.celebration_short);
             nextRound();
+
+        } else {
+
+            // Playback of the error sound
+            SoundPlayback.play(context, R.raw.menu_colors);
+
+            // Reset the current selection
+            selectedItemId = 0;
         }
     }
 
@@ -227,18 +250,11 @@ public class AudioMatchGame {
      */
     private void nextRound() {
 
-        if (correctItem == gameItems.size()) {
+        // Reset the initial values
+        resetGame();
 
-            resetGame();
-
-        }
-
-        // Clear actualItems and generate new ones
-        actualItems.clear();
+        // Initiate a new round of the game
         generateActualItems();
-
-        // Reset the number of selected items
-        selectedItem = 0;
 
         // Update UI
         viewAdapter.notifyDataSetChanged();
@@ -246,17 +262,18 @@ public class AudioMatchGame {
         // Run the slide up animation for the new items
         runLayoutAnimation();
 
-        // Disable touch during intro
-        GameUtils.setTouchEnabled(false);
-
     }
 
     /**
      * Reset the initial values in order to restart the game.
      */
     private void resetGame() {
-        selectedItem = 0;
-        correctItem = 0;
+
+        correctItemId = 0;
+        selectedItemId = 0;
+
+        // Clear list of actualItems
+        actualItems.clear();
     }
 
     /**
