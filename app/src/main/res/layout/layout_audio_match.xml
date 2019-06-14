@@ -8,7 +8,7 @@
     android:clipToPadding="false">
 
     <ImageView
-        android:id="@+id/audio_image"
+        android:id="@+id/speaker_phone_image"
         android:layout_width="@dimen/countImage"
         android:layout_height="@dimen/countImage"
         android:layout_margin="@dimen/standardMargin"
@@ -27,7 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/main_toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/audio_image" />
+        app:layout_constraintTop_toBottomOf="@+id/speaker_phone_image" />
 
     <include
         android:id="@+id/main_toolbar"
