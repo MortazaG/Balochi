@@ -253,6 +253,8 @@ public class AudioMatchGame {
         // Reset the initial values
         resetGame();
 
+        nextLevel();
+
         // Initiate a new round of the game
         generateActualItems();
 
@@ -274,6 +276,20 @@ public class AudioMatchGame {
 
         // Clear list of actualItems
         actualItems.clear();
+    }
+
+    /**
+     * Set the next level to be played.
+     */
+    private void nextLevel() {
+        if (currentLevel == LEVEL_ONE) {
+
+            currentLevel = LEVEL_TWO;
+
+        } else if (currentLevel == LEVEL_TWO) {
+
+            currentLevel = LEVEL_ONE;
+        }
     }
 
     /**
