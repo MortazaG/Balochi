@@ -49,10 +49,10 @@ public class AudioMatchActivity extends AppCompatActivity {
      */
     private void initiateGame() {
 
-        // Initiate GameItems list
+        // Initiate GameItems list to be used in the game
         ArrayList<GameItem> GameItems = new ArrayList<>();
 
-        // Add the GameItem objects that will be used to create card pairs
+        // Add new GameItem objects to the ArrayList
         GameItems.add(new GameItem(R.drawable.colors_memory_red, R.raw.colors_red));
         GameItems.add(new GameItem(R.drawable.colors_memory_green, R.raw.colors_green));
         GameItems.add(new GameItem(R.drawable.colors_memory_blue, R.raw.colors_blue));
@@ -63,7 +63,7 @@ public class AudioMatchActivity extends AppCompatActivity {
         GameItems.add(new GameItem(R.drawable.colors_memory_white, R.raw.colors_white));
         GameItems.add(new GameItem(R.drawable.colors_memory_grey, R.raw.colors_grey));
 
-        // Setup recycler view using the games built-in initiator
+        // Setup recycler view as a gridlayout
         recyclerView = GameUtils.initGridRecyclerView(this, R.id.recycler_view_audio_match, 2);
 
         // Find and store the image view so that it can be set by the game
@@ -72,11 +72,11 @@ public class AudioMatchActivity extends AppCompatActivity {
         // Initiate new round of MemoryGame game
         audioMatchGame = new AudioMatchGame(recyclerView, GameItems, speakerPhoneView);
 
-        // Create a new recycler view adapter with memory card backs as array list
-        GameAdapter adapter = new GameAdapter(this, audioMatchGame.getActualItems(), R.layout.game_item);
+        // Create a new recycler view adapter
+        GameAdapter adapter = new GameAdapter(this, audioMatchGame.getActualItems(), R.layout.audio_match_item);
         recyclerView.setAdapter(adapter);
 
-        // Set adapter to be used for the memory game
+        // Set adapter to be used for the game
         audioMatchGame.useAdapter(adapter);
 
         GameUtils.runSlideUpAnim(recyclerView, GameUtils.MEMORY);
