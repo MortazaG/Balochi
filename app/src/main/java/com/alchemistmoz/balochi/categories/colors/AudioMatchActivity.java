@@ -3,6 +3,7 @@ package com.alchemistmoz.balochi.categories.colors;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.games.audiomatch.AudioMatchGame;
@@ -65,8 +66,11 @@ public class AudioMatchActivity extends AppCompatActivity {
         // Setup recycler view using the games built-in initiator
         recyclerView = GameUtils.initGridRecyclerView(this, R.id.recycler_view_audio_match, 2);
 
+        // Find and store the image view so that it can be set by the game
+        ImageView speakerPhoneView = findViewById(R.id.speaker_phone_image);
+
         // Initiate new round of MemoryGame game
-        audioMatchGame = new AudioMatchGame(recyclerView, GameItems);
+        audioMatchGame = new AudioMatchGame(recyclerView, GameItems, speakerPhoneView);
 
         // Create a new recycler view adapter with memory card backs as array list
         GameAdapter adapter = new GameAdapter(this, audioMatchGame.getActualItems(), R.layout.game_item);
