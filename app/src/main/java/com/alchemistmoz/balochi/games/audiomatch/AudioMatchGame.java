@@ -280,6 +280,8 @@ public class AudioMatchGame {
 
     /**
      * Set the next level to be played.
+     * Always goes from LEVEL_ONE to LEVEL_TWO and
+     * then in reverse.
      */
     private void nextLevel() {
         if (currentLevel == LEVEL_ONE) {
