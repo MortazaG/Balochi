@@ -109,7 +109,7 @@ public class AudioMatchGame {
         currentLevel = LEVEL_ONE;
 
         // Placeholder for the sound of the correctItemId
-        speakerPhoneObject = new GameItem(R.drawable.colors3, R.raw.menu_colors);
+        speakerPhoneObject = new GameItem(R.drawable.speaker_phone, R.raw.menu_colors);
 
         correctItemId = 0;
         selectedItemId = 0;
@@ -139,6 +139,8 @@ public class AudioMatchGame {
         speakerPhoneView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Utilities.runOnTouchAnim(context, speakerPhoneView);
 
                 // Initialize playback of the sound of the correctItemId
                 SoundPlayback.play(context, speakerPhoneObject.getAudioResourceID());
