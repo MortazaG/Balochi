@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.games.repetition.GameAdapter;
@@ -13,6 +14,7 @@ import com.alchemistmoz.balochi.games.repetition.GameItem;
 import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
 import com.alchemistmoz.balochi.misc.Utilities;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -53,23 +55,22 @@ import java.util.ArrayList;
  */
 public class AudioMatchGame {
 
-    // The number of selected views
-    private int nrOfSelectedItems;
+    // The users guess of the correctItem
+    private int selectedItem;
 
-    // The total number of selected views
-    private int totalNrOfSelectedItems;
-
-    // Index number of the intro for the current round
-    private int currentIntroIndex;
-
-    // List of introductory sounds that will be played at the start of each round
-    private ArrayList<GameItem> intros;
+    // Store the current rounds correct word
+    private int correctItem;
 
     // The gameItems that will be used for generating an actualItems list
     private ArrayList<GameItem> gameItems;
 
     // The gameItems that will be visible during each round of the game
     private ArrayList<GameItem> actualItems;
+
+    // Image of the speaker phone to be displayed to the top of the screen
+    private ImageView speakerPhoneView;
+
+    private GameItem speakerPhoneObject;
 
     // RecyclerView from Activity needed for running animations and fetching context
     private RecyclerView recyclerView;
@@ -83,44 +84,30 @@ public class AudioMatchGame {
     // To be used for delaying posts
     private Handler handler;
 
-    // Allow for delaying the intro for each round and thus providing a better user experience
-    private Runnable introRunnable;
-
     /**
      * Sets the game off by initiating default values and the ArrayLists that will be used
      * in the game.
      *
      * @param recyclerView - The games recyclerView
      */
-    public AudioMatchGame(RecyclerView recyclerView, ArrayList<GameItem> gameItems) {
+    public AudioMatchGame(RecyclerView recyclerView, ArrayList<GameItem> gameItems, ImageView speakerPhoneView) {
         this.recyclerView = recyclerView;
-        this.intros = intros;
         this.gameItems = gameItems;
+        this.speakerPhoneView = speakerPhoneView;
 
         context = recyclerView.getContext();
 
-        nrOfSelectedItems = 0;
-        totalNrOfSelectedItems = 0;
-        currentIntroIndex = 0;
+        speakerPhoneObject = new GameItem(R.drawable.colors3, R.raw.menu_colors);
+
+        selectedItem = 0;
+        correctItem = 0;
 
         handler = new Handler();
-        introRunnable = new Runnable() {
-            @Override
-            public void run() {
-                playCurrentRoundIntro();
-            }
-        };
 
         actualItems = new ArrayList<>();
 
         // Initiate the first round of the game with a list of actualItems
         generateActualItems();
-
-        // Disable touch during intro
-        GameUtils.setTouchEnabled(false);
-
-        // Play intro for the current round
-        handler.postDelayed(introRunnable,800);
     }
 
     /**
@@ -130,37 +117,36 @@ public class AudioMatchGame {
 
         for (int x = 0; x < 2; x++) {
 
-            // The totalNrOfSelectedItems allows for going through the gameItems in concurrent order
-            int index = x + totalNrOfSelectedItems;
+            // The correctItem allows for going through the gameItems in concurrent order
+            int index = x + correctItem;
 
             GameItem currentItem = gameItems.get(index);
 
             // Add a new instance of the current item
-//            actualItems.add(new GameItem(currentItem.getImageResourceID(), currentItem.getAudioResourceID()));
+            actualItems.add(new GameItem(currentItem.getImageResourceID(), currentItem.getAudioResourceID()));
         }
     }
 
     /**
-     * Play a descriptive sound intro for the items of the current round.
+     * Set the speaker phone image to be shown to the top and
+     * make it clickable.
      */
-    private void playCurrentRoundIntro() {
+    private void initiateSpeakerPhoneView() {
 
-        // Initialize playback of the intro if window is in focus
-        if (recyclerView.hasWindowFocus()) {
-//            SoundPlayback.play(context, intros.get(currentIntroIndex).getAudioResourceID());
-        }
+        // Set the speaker phone image
+        Glide.with(context)
+                .load(speakerPhoneObject.getImageResourceID())
+                .into(speakerPhoneView);
 
-        // Increment index number with one, to be used for the next round
-        currentIntroIndex += 1;
-
-        // Enable touch events after sound playback
-        handler.postDelayed(new Runnable() {
+        // Set click listener in order to allow the correct sound to be played
+        speakerPhoneView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                GameUtils.setTouchEnabled(true);
-            }
-        }, SoundPlayback.getSoundDuration());
+            public void onClick(View view) {
 
+                // Initialize playback of the sound of the correctItem
+                SoundPlayback.play(context, speakerPhoneObject.getAudioResourceID());
+            }
+        });
     }
 
     /**
@@ -198,10 +184,10 @@ public class AudioMatchGame {
             Utilities.runOnTouchAnim(context, view);
 
             // Increase the number of selected items for this round
-            nrOfSelectedItems += 1;
+            this.selectedItem += 1;
 
             // Incrementally increase the total number of selected items
-            totalNrOfSelectedItems += 1;
+            correctItem += 1;
 
             // Initialize playback of the sound related to the item the user has selected
 //            SoundPlayback.play(context, selectedItem.getAudioResourceID());
@@ -231,7 +217,7 @@ public class AudioMatchGame {
      * then bring the next two i.e. start the next round.
      */
     private void checkGameStatus() {
-        if (nrOfSelectedItems >= 2) {
+        if (selectedItem >= 2) {
             nextRound();
         }
     }
@@ -241,7 +227,7 @@ public class AudioMatchGame {
      */
     private void nextRound() {
 
-        if (totalNrOfSelectedItems == gameItems.size()) {
+        if (correctItem == gameItems.size()) {
 
             resetGame();
 
@@ -252,7 +238,7 @@ public class AudioMatchGame {
         generateActualItems();
 
         // Reset the number of selected items
-        nrOfSelectedItems = 0;
+        selectedItem = 0;
 
         // Update UI
         viewAdapter.notifyDataSetChanged();
@@ -263,18 +249,14 @@ public class AudioMatchGame {
         // Disable touch during intro
         GameUtils.setTouchEnabled(false);
 
-        // Play intro for the current round
-        handler.postDelayed(introRunnable, 800);
-
     }
 
     /**
      * Reset the initial values in order to restart the game.
      */
     private void resetGame() {
-        nrOfSelectedItems = 0;
-        totalNrOfSelectedItems = 0;
-        currentIntroIndex = 0;
+        selectedItem = 0;
+        correctItem = 0;
     }
 
     /**
