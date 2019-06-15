@@ -92,6 +92,9 @@ public class AudioMatchGame {
     // To be used for delaying posts
     private Handler handler;
 
+    // Allow for delaying the intro for each round and thus providing a better user experience
+    private Runnable introRunnable;
+
     /**
      * Sets the game off by initiating default values and the ArrayLists that will be used
      * in the game.
@@ -115,12 +118,23 @@ public class AudioMatchGame {
         selectedItemId = 0;
 
         handler = new Handler();
+        introRunnable = new Runnable() {
+            @Override
+            public void run() {
+                playCorrectItemIntro();
+            }
+        };
 
         actualItems = new ArrayList<>();
 
         // Initiate the first round of the game
         initiateSpeakerPhoneView();
         generateActualItems();
+
+        // Disable touch during intro
+        GameUtils.setTouchEnabled(false);
+
+        handler.postDelayed(introRunnable, 800);
     }
 
 
@@ -192,6 +206,24 @@ public class AudioMatchGame {
     }
 
     /**
+     * Play a descriptive sound intro for the items of the current round.
+     */
+    private void playCorrectItemIntro() {
+
+        // Initialize playback of the intro if window is in focus
+        playSound(correctItemId);
+
+        // Enable touch events after sound playback
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                GameUtils.setTouchEnabled(true);
+            }
+        }, SoundPlayback.getSoundDuration());
+
+    }
+
+    /**
      * Play the sound of the selected item and make it INVISIBLE,
      * then check for the current status of the game.
      *
@@ -235,13 +267,13 @@ public class AudioMatchGame {
         if (selectedItemId == correctItemId) {
 
             // Celebrate and initiate the next round
-            playEndOfLevelSound(R.raw.celebration_short);
+            playSound(R.raw.celebration_short);
             nextRound();
 
         } else {
 
             // Playback of the error sound
-            playEndOfLevelSound(R.raw.menu_colors);
+            playSound(R.raw.menu_colors);
 
             // Reset the current selection
             selectedItemId = 0;
@@ -255,7 +287,7 @@ public class AudioMatchGame {
      *
      * @param audioResourceId - Resource Id for the sound to be played.
      */
-    private void playEndOfLevelSound(int audioResourceId) {
+    private void playSound(int audioResourceId) {
 
         if (recyclerView.hasWindowFocus()) {
             SoundPlayback.play(context, audioResourceId);
@@ -280,6 +312,11 @@ public class AudioMatchGame {
 
         // Run the slide up animation for the new items
         runLayoutAnimation();
+
+        // Disable touch during intro
+        GameUtils.setTouchEnabled(false);
+
+        handler.postDelayed(introRunnable, 800);
 
     }
 
