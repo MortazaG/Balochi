@@ -1,4 +1,4 @@
-package com.alchemistmoz.balochi.games.repetition;
+package com.alchemistmoz.balochi.games;
 
 /**
  * Create an item object to be used for the game.

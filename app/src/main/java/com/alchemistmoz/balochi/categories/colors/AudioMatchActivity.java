@@ -7,8 +7,8 @@ import android.widget.ImageView;
 
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.games.audiomatch.AudioMatchGame;
-import com.alchemistmoz.balochi.games.repetition.GameAdapter;
-import com.alchemistmoz.balochi.games.repetition.GameItem;
+import com.alchemistmoz.balochi.games.GameAdapter;
+import com.alchemistmoz.balochi.games.GameItem;
 import com.alchemistmoz.balochi.misc.CustomToolbar;
 import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;

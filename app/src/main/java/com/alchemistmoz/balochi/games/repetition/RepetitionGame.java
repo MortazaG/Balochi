@@ -8,6 +8,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
 import com.alchemistmoz.balochi.R;
+import com.alchemistmoz.balochi.games.GameAdapter;
+import com.alchemistmoz.balochi.games.GameItem;
 import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
 import com.alchemistmoz.balochi.misc.Utilities;

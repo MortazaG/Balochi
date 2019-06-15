@@ -1,4 +1,4 @@
-package com.alchemistmoz.balochi.games.repetition;
+package com.alchemistmoz.balochi.games;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
