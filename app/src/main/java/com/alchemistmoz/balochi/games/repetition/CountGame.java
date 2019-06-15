@@ -205,8 +205,13 @@ public class CountGame {
             @Override
             public void onClick(View view) {
 
-                // Initialize playback of the sound related to the current count
-                SoundPlayback.play(context, currentNumberItem.getAudioResourceID());
+                if (GameUtils.isTouchEnabled()) {
+
+                    Utilities.runOnTouchAnim(context, numberImage);
+
+                    // Initialize playback of the sound related to the current count
+                    SoundPlayback.play(context, currentNumberItem.getAudioResourceID());
+                }
             }
         });
     }
