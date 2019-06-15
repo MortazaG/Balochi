@@ -4,10 +4,10 @@
     <dimen name="memoryCard">100dp</dimen>
     <dimen name="countItem">90dp</dimen>
     <dimen name="countImage">180dp</dimen>
-    <dimen name="audioMatchItem">130dp</dimen>
-    <dimen name="audioMatchImage">130dp</dimen>
+    <dimen name="audioMatchItem">160dp</dimen>
+    <dimen name="audioMatchImage">150dp</dimen>
 
-    <dimen name="standardMargin">16dp</dimen>
+    <dimen name="standardMargin">32dp</dimen>
     <dimen name="toolbarItem">50dp</dimen>
     <dimen name="toolbarPadding">8dp</dimen>
     <dimen name="menuPaddingLeft">64dp</dimen>
