@@ -2,6 +2,9 @@ package com.alchemistmoz.balochi.games;
 
 /**
  * Create an item object to be used for the game.
+ *
+ * If the item is to be made INVISIBLE during the game, use the setSelected() method.
+ * setSelected() works in conjunction with the GameAdapter to make items INVISIBLE.
  */
 public class GameItem {
 
