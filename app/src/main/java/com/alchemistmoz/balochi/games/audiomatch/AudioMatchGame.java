@@ -142,7 +142,7 @@ public class AudioMatchGame {
 
                 Utilities.runOnTouchAnim(context, speakerPhoneView);
 
-                // Initialize playback of the sound of the correctItemId
+                // Initialize playback of the sound of the correctItem
                 SoundPlayback.play(context, speakerPhoneObject.getAudioResourceID());
             }
         });
@@ -168,6 +168,7 @@ public class AudioMatchGame {
 
         // First item in the list is chosen as the correct word item
         correctItemId = actualItems.get(0).getAudioResourceID();
+        speakerPhoneObject.setAudioResourceID(correctItemId);
 
         // Shuffle list again so that they are presented
         // in a random order.
