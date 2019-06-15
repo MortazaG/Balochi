@@ -235,16 +235,30 @@ public class AudioMatchGame {
         if (selectedItemId == correctItemId) {
 
             // Celebrate and initiate the next round
-            SoundPlayback.play(context, R.raw.celebration_short);
+            playEndOfLevelSound(R.raw.celebration_short);
             nextRound();
 
         } else {
 
             // Playback of the error sound
-            SoundPlayback.play(context, R.raw.menu_colors);
+            playEndOfLevelSound(R.raw.menu_colors);
 
             // Reset the current selection
             selectedItemId = 0;
+        }
+    }
+
+    /**
+     * Play the given sound only if the window currently has focus.
+     * The sound to be played should be either in celebration or for
+     * wrong answers.
+     *
+     * @param audioResourceId - Resource Id for the sound to be played.
+     */
+    private void playEndOfLevelSound(int audioResourceId) {
+
+        if (recyclerView.hasWindowFocus()) {
+            SoundPlayback.play(context, audioResourceId);
         }
     }
 
