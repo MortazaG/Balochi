@@ -154,10 +154,13 @@ public class AudioMatchGame {
             @Override
             public void onClick(View view) {
 
-                Utilities.runOnTouchAnim(context, speakerPhoneView);
+                if (GameUtils.isTouchEnabled()) {
 
-                // Initialize playback of the sound of the correctItem
-                SoundPlayback.play(context, speakerPhoneObject.getAudioResourceID());
+                    Utilities.runOnTouchAnim(context, speakerPhoneView);
+
+                    // Initialize playback of the sound of the correctItem
+                    SoundPlayback.play(context, speakerPhoneObject.getAudioResourceID());
+                }
             }
         });
     }
