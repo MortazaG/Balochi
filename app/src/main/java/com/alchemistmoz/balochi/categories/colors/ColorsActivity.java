@@ -50,7 +50,7 @@ public class ColorsActivity extends AppCompatActivity {
         // Add new Category objects to the ArrayList
         categories.add(new Category(R.drawable.colors_menu_repetition, R.raw.menu_repetition, RepetitionActivity.class));
         categories.add(new Category(R.drawable.colors_menu_memory, R.raw.menu_memory, MemoryActivity.class));
-        categories.add(new Category(R.drawable.colors_menu_audiomatch, R.raw.menu_colors, AudioMatchActivity.class));
+        categories.add(new Category(R.drawable.colors_menu_audiomatch2, R.raw.menu_colors, AudioMatchActivity.class));
 
         // Setup the recycler view
         recyclerView = Utilities.initLinearRecyclerView(this, R.id.recycler_view_list);
