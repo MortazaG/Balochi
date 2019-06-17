@@ -44,8 +44,8 @@ public class AudioMatchActivity extends AppCompatActivity {
      * Initiate the game with:
      * - Game items list
      * - Setup RecyclerView
-     * - New instance of the MemoryGame
-     * - New instance of the recyclerView MemoryAdapter
+     * - New instance of the Game
+     * - New instance of the recyclerView GameAdapter
      */
     private void initiateGame() {
 
