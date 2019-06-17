@@ -270,13 +270,13 @@ public class AudioMatchGame {
         if (selectedItemId == correctItemId) {
 
             // Celebrate and initiate the next round
-            playSound(R.raw.celebration_short);
+            playSound(R.raw.correct_answer);
             nextRound();
 
         } else {
 
             // Playback of the error sound
-            playSound(R.raw.menu_colors);
+            playSound(R.raw.wrong_answer);
 
             // Reset the current selection
             selectedItemId = 0;
