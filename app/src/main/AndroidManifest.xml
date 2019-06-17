@@ -37,6 +37,10 @@
             android:name=".categories.numbers.MemoryActivity"
             android:parentActivityName=".categories.numbers.NumbersActivity"
             android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".categories.numbers.AudioMatchActivity"
+            android:parentActivityName=".categories.numbers.NumbersActivity"
+            android:screenOrientation="sensorLandscape" />
 
         <!-- Colors Activity -->
         <activity
@@ -69,6 +73,10 @@
             android:name=".categories.family.MemoryActivity"
             android:parentActivityName=".categories.family.FamilyActivity"
             android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".categories.family.AudioMatchActivity"
+            android:parentActivityName=".categories.family.FamilyActivity"
+            android:screenOrientation="sensorLandscape" />
 
         <!-- FruitVeggies Activity -->
         <activity
@@ -81,6 +89,10 @@
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".categories.fruitveggies.MemoryActivity"
+            android:parentActivityName=".categories.fruitveggies.FruitVeggiesActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".categories.fruitveggies.AudioMatchActivity"
             android:parentActivityName=".categories.fruitveggies.FruitVeggiesActivity"
             android:screenOrientation="sensorLandscape" />
 
