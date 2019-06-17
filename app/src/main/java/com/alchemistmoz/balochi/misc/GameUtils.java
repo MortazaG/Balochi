@@ -25,6 +25,7 @@ public final class GameUtils {
     public final static int REPETITION = 0;
     public final static int COUNT = 1;
     public final static int MEMORY = 2;
+    public final static int AUDIOMATCH = 3;
 
     // Allows for touch events to be temporarily disabled
     private static boolean touchEnabled = true;
