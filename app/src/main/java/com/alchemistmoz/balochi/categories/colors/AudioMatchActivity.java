@@ -49,19 +49,19 @@ public class AudioMatchActivity extends AppCompatActivity {
      */
     private void initiateGame() {
 
-        // Initiate GameItems list to be used in the game
-        ArrayList<GameItem> GameItems = new ArrayList<>();
+        // Initiate gameItems list to be used in the game
+        ArrayList<GameItem> gameItems = new ArrayList<>();
 
         // Add new GameItem objects to the ArrayList
-        GameItems.add(new GameItem(R.drawable.colors_memory_red, R.raw.colors_red));
-        GameItems.add(new GameItem(R.drawable.colors_memory_green, R.raw.colors_green));
-        GameItems.add(new GameItem(R.drawable.colors_memory_blue, R.raw.colors_blue));
-        GameItems.add(new GameItem(R.drawable.colors_memory_yellow, R.raw.colors_yellow));
-        GameItems.add(new GameItem(R.drawable.colors_memory_orange, R.raw.colors_orange));
-        GameItems.add(new GameItem(R.drawable.colors_memory_brown, R.raw.colors_brown));
-        GameItems.add(new GameItem(R.drawable.colors_memory_black, R.raw.colors_black));
-        GameItems.add(new GameItem(R.drawable.colors_memory_white, R.raw.colors_white));
-        GameItems.add(new GameItem(R.drawable.colors_memory_grey, R.raw.colors_grey));
+        gameItems.add(new GameItem(R.drawable.colors_memory_red, R.raw.colors_red));
+        gameItems.add(new GameItem(R.drawable.colors_memory_green, R.raw.colors_green));
+        gameItems.add(new GameItem(R.drawable.colors_memory_blue, R.raw.colors_blue));
+        gameItems.add(new GameItem(R.drawable.colors_memory_yellow, R.raw.colors_yellow));
+        gameItems.add(new GameItem(R.drawable.colors_memory_orange, R.raw.colors_orange));
+        gameItems.add(new GameItem(R.drawable.colors_memory_brown, R.raw.colors_brown));
+        gameItems.add(new GameItem(R.drawable.colors_memory_black, R.raw.colors_black));
+        gameItems.add(new GameItem(R.drawable.colors_memory_white, R.raw.colors_white));
+        gameItems.add(new GameItem(R.drawable.colors_memory_grey, R.raw.colors_grey));
 
         // Setup recycler view as a gridlayout
         recyclerView = GameUtils.initGridRecyclerView(this, R.id.recycler_view_audio_match, 2);
@@ -70,7 +70,7 @@ public class AudioMatchActivity extends AppCompatActivity {
         ImageView speakerPhoneView = findViewById(R.id.speaker_phone_image);
 
         // Initiate new round of MemoryGame game
-        audioMatchGame = new AudioMatchGame(recyclerView, GameItems, speakerPhoneView);
+        audioMatchGame = new AudioMatchGame(recyclerView, gameItems, speakerPhoneView);
 
         // Create a new recycler view adapter
         GameAdapter adapter = new GameAdapter(this, audioMatchGame.getActualItems(), R.layout.audio_match_item);
