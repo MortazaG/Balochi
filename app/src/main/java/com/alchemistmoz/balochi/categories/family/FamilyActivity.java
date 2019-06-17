@@ -51,6 +51,7 @@ public class FamilyActivity extends AppCompatActivity {
         // Add new Category objects to the ArrayList
         categories.add(new Category(R.drawable.family_menu_repetition1, R.raw.menu_repetition, RepetitionActivity.class));
         categories.add(new Category(R.drawable.family_menu_memory, R.raw.menu_memory, MemoryActivity.class));
+        categories.add(new Category(R.drawable.family_menu_audiomatch, R.raw.menu_repetition, AudioMatchActivity.class));
 
         // Setup the recycler view
         recyclerView = Utilities.initLinearRecyclerView(this, R.id.recycler_view_list);
