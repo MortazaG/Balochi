@@ -79,7 +79,7 @@ public class AudioMatchActivity extends AppCompatActivity {
         // Set adapter to be used for the game
         audioMatchGame.useAdapter(adapter);
 
-        GameUtils.runSlideUpAnim(recyclerView, GameUtils.MEMORY);
+        GameUtils.runSlideUpAnim(recyclerView, GameUtils.AUDIOMATCH);
 
     }
 
