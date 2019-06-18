@@ -4,6 +4,8 @@
     <dimen name="memoryCard">165dp</dimen>
     <dimen name="countItem">135dp</dimen>
     <dimen name="countImage">290dp</dimen>
+    <dimen name="audioMatchItem">230dp</dimen>
+    <dimen name="audioMatchImage">220dp</dimen>
 
     <dimen name="standardMargin">32dp</dimen>
     <dimen name="toolbarItem">70dp</dimen>
