@@ -48,7 +48,7 @@ public class FruitVeggiesActivity extends AppCompatActivity {
         final ArrayList<Category> categories = new ArrayList<>();
 
         // Add new Category objects to the ArrayList
-        categories.add(new Category(R.drawable.fruitveggies_menu_repetition, R.raw.menu_repetition, RepetitionActivity.class));
+        categories.add(new Category(R.drawable.fruitveggies_menu_repetition2, R.raw.menu_repetition, RepetitionActivity.class));
         categories.add(new Category(R.drawable.fruitveggies_menu_memory, R.raw.menu_memory, MemoryActivity.class));
         categories.add(new Category(R.drawable.fruitveggies_menu_audiomatch, R.raw.menu_repetition, AudioMatchActivity.class));
 
