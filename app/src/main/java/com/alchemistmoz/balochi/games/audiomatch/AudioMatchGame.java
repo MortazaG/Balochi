@@ -1,4 +1,4 @@
-package com.alchemistmoz.balochi.games.repetition;
+package com.alchemistmoz.balochi.games.audiomatch;
 
 import android.content.Context;
 import android.os.Handler;
@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.games.GameAdapter;
@@ -13,8 +14,10 @@ import com.alchemistmoz.balochi.games.GameItem;
 import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
 import com.alchemistmoz.balochi.misc.Utilities;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -51,25 +54,31 @@ import java.util.ArrayList;
  *   run .selectItem(pos) with handler.postDelayed after Utilities.ON_TOUCH_ANIM_LENGTH.
  *
  */
-public class RepetitionGame {
+public class AudioMatchGame {
 
-    // The number of selected views
-    private int nrOfSelectedItems;
+    // All the available levels in the game
+    private static final int LEVEL_ONE = 2;
+    private static final int LEVEL_TWO = 4;
 
-    // The total number of selected views
-    private int totalNrOfSelectedItems;
+    // Current level in the game
+    private int currentLevel;
 
-    // Index number of the intro for the current round
-    private int currentIntroIndex;
+    // The users guess of the correctItemId
+    private int selectedItemId;
 
-    // List of introductory sounds that will be played at the start of each round
-    private ArrayList<GameItem> intros;
+    // Store the current rounds correct word
+    private int correctItemId;
 
     // The gameItems that will be used for generating an actualItems list
     private ArrayList<GameItem> gameItems;
 
     // The gameItems that will be visible during each round of the game
     private ArrayList<GameItem> actualItems;
+
+    // Image of the speaker phone to be displayed to the top of the screen
+    private ImageView speakerPhoneView;
+
+    private GameItem speakerPhoneObject;
 
     // RecyclerView from Activity needed for running animations and fetching context
     private RecyclerView recyclerView;
@@ -92,35 +101,68 @@ public class RepetitionGame {
      *
      * @param recyclerView - The games recyclerView
      */
-    public RepetitionGame(RecyclerView recyclerView, ArrayList<GameItem> intros, ArrayList<GameItem> gameItems) {
+    public AudioMatchGame(RecyclerView recyclerView, ArrayList<GameItem> gameItems, ImageView speakerPhoneView) {
         this.recyclerView = recyclerView;
-        this.intros = intros;
         this.gameItems = gameItems;
+        this.speakerPhoneView = speakerPhoneView;
 
         context = recyclerView.getContext();
 
-        nrOfSelectedItems = 0;
-        totalNrOfSelectedItems = 0;
-        currentIntroIndex = 0;
+        // Start the game of with the first level
+        currentLevel = LEVEL_ONE;
+
+        // Placeholder for the sound of the correctItemId
+        speakerPhoneObject = new GameItem(R.drawable.speaker_phone, R.raw.menu_colors);
+
+        correctItemId = 0;
+        selectedItemId = 0;
 
         handler = new Handler();
         introRunnable = new Runnable() {
             @Override
             public void run() {
-                playCurrentRoundIntro();
+                playCorrectItemIntro();
             }
         };
 
         actualItems = new ArrayList<>();
 
-        // Initiate the first round of the game with a list of actualItems
+        // Initiate the first round of the game
+        initiateSpeakerPhoneView();
         generateActualItems();
 
         // Disable touch during intro
         GameUtils.setTouchEnabled(false);
 
-        // Play intro for the current round
-        handler.postDelayed(introRunnable,800);
+        handler.postDelayed(introRunnable, 800);
+    }
+
+
+    /**
+     * Set the speaker phone image to be shown to the top and
+     * make it clickable.
+     */
+    private void initiateSpeakerPhoneView() {
+
+        // Set the speaker phone image
+        Glide.with(context)
+                .load(speakerPhoneObject.getImageResourceID())
+                .into(speakerPhoneView);
+
+        // Set click listener in order to allow the correct sound to be played
+        speakerPhoneView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (GameUtils.isTouchEnabled()) {
+
+                    Utilities.runOnTouchAnim(context, speakerPhoneView);
+
+                    // Initialize playback of the sound of the correctItem
+                    SoundPlayback.play(context, speakerPhoneObject.getAudioResourceID());
+                }
+            }
+        });
     }
 
     /**
@@ -128,39 +170,26 @@ public class RepetitionGame {
      */
     private void generateActualItems() {
 
-        for (int x = 0; x < 2; x++) {
+        // Shuffle the game items in order to randomize the words of
+        // each new round.
+        Collections.shuffle(gameItems);
 
-            // The totalNrOfSelectedItems allows for going through the gameItems in concurrent order
-            int index = x + totalNrOfSelectedItems;
+        // Generate list of items to be used for the current level
+        for (int x = 0; x < currentLevel; x++) {
 
-            GameItem currentItem = gameItems.get(index);
+            GameItem currentItem = gameItems.get(x);
 
             // Add a new instance of the current item
             actualItems.add(new GameItem(currentItem.getImageResourceID(), currentItem.getAudioResourceID()));
         }
-    }
 
-    /**
-     * Play a descriptive sound intro for the items of the current round.
-     */
-    private void playCurrentRoundIntro() {
+        // First item in the list is chosen as the correct word item
+        correctItemId = actualItems.get(0).getAudioResourceID();
+        speakerPhoneObject.setAudioResourceID(correctItemId);
 
-        // Initialize playback of the intro if window is in focus
-        if (recyclerView.hasWindowFocus()) {
-            SoundPlayback.play(context, intros.get(currentIntroIndex).getAudioResourceID());
-        }
-
-        // Increment index number with one, to be used for the next round
-        currentIntroIndex += 1;
-
-        // Enable touch events after sound playback
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                GameUtils.setTouchEnabled(true);
-            }
-        }, SoundPlayback.getSoundDuration());
-
+        // Shuffle list again so that they are presented
+        // in a random order.
+        Collections.shuffle(actualItems);
     }
 
     /**
@@ -180,6 +209,24 @@ public class RepetitionGame {
     }
 
     /**
+     * Play a descriptive sound intro for the items of the current round.
+     */
+    private void playCorrectItemIntro() {
+
+        // Initialize playback of the intro if window is in focus
+        playSound(correctItemId);
+
+        // Enable touch events after sound playback
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                GameUtils.setTouchEnabled(true);
+            }
+        }, SoundPlayback.getSoundDuration());
+
+    }
+
+    /**
      * Play the sound of the selected item and make it INVISIBLE,
      * then check for the current status of the game.
      *
@@ -190,24 +237,18 @@ public class RepetitionGame {
         // Store the gameItem that the user has currently selected
         GameItem selectedItem = actualItems.get(position);
 
-        if (GameUtils.isTouchEnabled() && !selectedItem.isSelected()) {
+        if (GameUtils.isTouchEnabled()) {
 
             // Disable further touch events
             GameUtils.setTouchEnabled(false);
 
             Utilities.runOnTouchAnim(context, view);
 
-            // Increase the number of selected items for this round
-            nrOfSelectedItems += 1;
-
-            // Incrementally increase the total number of selected items
-            totalNrOfSelectedItems += 1;
-
             // Initialize playback of the sound related to the item the user has selected
             SoundPlayback.play(context, selectedItem.getAudioResourceID());
 
-            // Set selected to true so that visibility changes to INVISIBLE
-            selectedItem.setSelected(true);
+            // Store the resource id for the selected item
+            selectedItemId = selectedItem.getAudioResourceID();
 
             // Check game status and enable touch events after sound playback
             handler.postDelayed(new Runnable() {
@@ -215,11 +256,7 @@ public class RepetitionGame {
                 public void run() {
 
                     GameUtils.setTouchEnabled(true);
-
-                    // Update the UI
-                    viewAdapter.notifyItemChanged(position);
-
-                    checkGameStatus();
+                    checkSelections();
 
                 }
             }, SoundPlayback.getSoundDuration());
@@ -227,12 +264,36 @@ public class RepetitionGame {
     }
 
     /**
-     * Check the current status of the game. If both items have been selected,
-     * then bring the next two i.e. start the next round.
+     * Check if the selected items are a match.
      */
-    private void checkGameStatus() {
-        if (nrOfSelectedItems >= 2) {
+    private void checkSelections() {
+        if (selectedItemId == correctItemId) {
+
+            // Celebrate and initiate the next round
+            playSound(R.raw.correct_answer3);
             nextRound();
+
+        } else {
+
+            // Playback of the error sound
+            playSound(R.raw.wrong_answer);
+
+            // Reset the current selection
+            selectedItemId = 0;
+        }
+    }
+
+    /**
+     * Play the given sound only if the window currently has focus.
+     * The sound to be played should be either in celebration or for
+     * wrong answers.
+     *
+     * @param audioResourceId - Resource Id for the sound to be played.
+     */
+    private void playSound(int audioResourceId) {
+
+        if (recyclerView.hasWindowFocus()) {
+            SoundPlayback.play(context, audioResourceId);
         }
     }
 
@@ -241,18 +302,13 @@ public class RepetitionGame {
      */
     private void nextRound() {
 
-        if (totalNrOfSelectedItems == gameItems.size()) {
+        // Reset the initial values
+        resetGame();
 
-            resetGame();
+        nextLevel();
 
-        }
-
-        // Clear actualItems and generate new ones
-        actualItems.clear();
+        // Initiate a new round of the game
         generateActualItems();
-
-        // Reset the number of selected items
-        nrOfSelectedItems = 0;
 
         // Update UI
         viewAdapter.notifyDataSetChanged();
@@ -263,7 +319,6 @@ public class RepetitionGame {
         // Disable touch during intro
         GameUtils.setTouchEnabled(false);
 
-        // Play intro for the current round
         handler.postDelayed(introRunnable, 800);
 
     }
@@ -272,9 +327,28 @@ public class RepetitionGame {
      * Reset the initial values in order to restart the game.
      */
     private void resetGame() {
-        nrOfSelectedItems = 0;
-        totalNrOfSelectedItems = 0;
-        currentIntroIndex = 0;
+
+        correctItemId = 0;
+        selectedItemId = 0;
+
+        // Clear list of actualItems
+        actualItems.clear();
+    }
+
+    /**
+     * Set the next level to be played.
+     * Always goes from LEVEL_ONE to LEVEL_TWO and
+     * then in reverse.
+     */
+    private void nextLevel() {
+        if (currentLevel == LEVEL_ONE) {
+
+            currentLevel = LEVEL_TWO;
+
+        } else if (currentLevel == LEVEL_TWO) {
+
+            currentLevel = LEVEL_ONE;
+        }
     }
 
     /**

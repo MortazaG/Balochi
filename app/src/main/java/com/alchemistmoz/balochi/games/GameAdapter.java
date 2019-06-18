@@ -1,4 +1,4 @@
-package com.alchemistmoz.balochi.games.repetition;
+package com.alchemistmoz.balochi.games;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -18,7 +18,8 @@ import java.util.ArrayList;
  * when the original item is no longer available.
  *
  * This game adapter is also customized to setVisibility of views to INVISIBLE if that
- * specific view item has been selected by the user during the game.
+ * specific view item has been selected by the user during the game. This selection
+ * is signaled by setting the GameItems xxx.setSelected(true). The standard value is false.
  */
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
 

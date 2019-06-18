@@ -9,7 +9,7 @@ import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.CustomToolbar;
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
-import com.alchemistmoz.balochi.games.repetition.GameAdapter;
+import com.alchemistmoz.balochi.games.GameAdapter;
 import com.alchemistmoz.balochi.games.repetition.CountGame;
 
 public class RepetitionActivity extends AppCompatActivity {

@@ -1,7 +1,10 @@
-package com.alchemistmoz.balochi.games.repetition;
+package com.alchemistmoz.balochi.games;
 
 /**
  * Create an item object to be used for the game.
+ *
+ * If the item is to be made INVISIBLE during the game, use the setSelected() method.
+ * setSelected() works in conjunction with the GameAdapter to make items INVISIBLE.
  */
 public class GameItem {
 
@@ -45,14 +48,14 @@ public class GameItem {
      *
      * @param newImageResourceId - Image resource ID e.g. R.drawable.xxx.
      */
-    void setImageResourceID(int newImageResourceId) {
+    public void setImageResourceID(int newImageResourceId) {
         imageResourceId = newImageResourceId;
     }
 
     /**
      * @return The image resource ID
      */
-    int getImageResourceID() {
+    public int getImageResourceID() {
         return imageResourceId;
     }
 
@@ -61,14 +64,14 @@ public class GameItem {
      *
      * @param newAudioResourceId - Image resource ID e.g. R.drawable.xxx.
      */
-    void setAudioResourceID(int newAudioResourceId) {
+    public void setAudioResourceID(int newAudioResourceId) {
         audioResourceId = newAudioResourceId;
     }
 
     /**
      * @return The audio resource ID
      */
-    int getAudioResourceID() {
+    public int getAudioResourceID() {
         return audioResourceId;
     }
 
