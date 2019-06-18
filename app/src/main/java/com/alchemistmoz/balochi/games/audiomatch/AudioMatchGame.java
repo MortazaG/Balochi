@@ -270,7 +270,7 @@ public class AudioMatchGame {
         if (selectedItemId == correctItemId) {
 
             // Celebrate and initiate the next round
-            playSound(R.raw.correct_answer);
+            playSound(R.raw.correct_answer3);
             nextRound();
 
         } else {
