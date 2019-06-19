@@ -76,5 +76,7 @@ public class FruitVeggiesActivity extends AppCompatActivity {
         // Remove all pending posts of callbacks and sent messages.
         Utilities.removePendingPosts();
 
+        // Enable all touch events (in case touch was disabled right before onPause)
+        Utilities.setTouchEnabled(true);
     }
 }
