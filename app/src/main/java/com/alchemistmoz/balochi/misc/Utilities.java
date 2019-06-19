@@ -93,7 +93,7 @@ public final class Utilities {
                 MainAdapter adapter = (MainAdapter) recyclerView.getAdapter();
 
                 // Play the sound of the selected menu item and start the correlated activity
-                Utilities.startMenuActivity(v.getContext(), v, adapter, position);
+                startMenuActivity(v.getContext(), v, adapter, position);
 
             }
         });
