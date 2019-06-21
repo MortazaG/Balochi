@@ -1,10 +1,12 @@
 package com.alchemistmoz.balochi;
 
+import android.media.FaceDetector;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.alchemistmoz.balochi.categories.colors.ColorsActivity;
+import com.alchemistmoz.balochi.categories.face.FaceActivity;
 import com.alchemistmoz.balochi.categories.family.FamilyActivity;
 import com.alchemistmoz.balochi.categories.fruitveggies.FruitVeggiesActivity;
 import com.alchemistmoz.balochi.categories.numbers.NumbersActivity;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Add new Category objects to the ArrayList
         categories.add(new Category(R.drawable.numbers5, R.raw.menu_numbers, NumbersActivity.class));
+        categories.add(new Category(R.drawable.fruitveggies1, R.raw.menu_fruitveggies, FaceActivity.class));
         categories.add(new Category(R.drawable.colors3, R.raw.menu_colors, ColorsActivity.class));
         categories.add(new Category(R.drawable.family1, R.raw.menu_family, FamilyActivity.class));
         categories.add(new Category(R.drawable.fruitveggies1, R.raw.menu_fruitveggies, FruitVeggiesActivity.class));
