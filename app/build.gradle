@@ -6,8 +6,8 @@ android {
         applicationId 'com.alchemistmoz.balochi'
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 12
-        versionName "1.50"
+        versionCode 13
+        versionName "1.52"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
