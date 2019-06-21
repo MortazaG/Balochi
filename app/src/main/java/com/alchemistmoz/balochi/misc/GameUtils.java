@@ -12,6 +12,7 @@ import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.games.audiomatch.AudioMatchGame;
 import com.alchemistmoz.balochi.games.memory.MemoryGame;
 import com.alchemistmoz.balochi.games.repetition.CountGame;
+import com.alchemistmoz.balochi.games.repetition.FaceGame;
 import com.alchemistmoz.balochi.games.repetition.RepetitionGame;
 
 /**
@@ -150,6 +151,24 @@ public final class GameUtils {
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
                 audioMatchGame.selectItem(position, v);
+
+            }
+        });
+    }
+
+    /**
+     * Add ItemClickSupport for the face game items.
+     *
+     * @param recyclerView of the RepetitionActivity.
+     * @param faceGame instance of the game.
+     */
+    public static void addFaceItemClickSupport(RecyclerView recyclerView, final FaceGame faceGame) {
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                faceGame.selectItem(position, v);
 
             }
         });
