@@ -48,7 +48,7 @@ public class RepetitionActivity extends AppCompatActivity {
     private void initiateGame() {
 
         // Setup recycler view as a grid layout
-        recyclerView = GameUtils.initGridRecyclerView(this, R.id.recycler_view_grid, 12);
+        recyclerView = GameUtils.initGridRecyclerView(this, R.id.recycler_view_grid, 10);
 
         // Initiate a new round of the counting game
         faceGame = new FaceGame(recyclerView);
