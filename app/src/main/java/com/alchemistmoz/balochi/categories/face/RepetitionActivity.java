@@ -6,10 +6,13 @@ import android.support.v7.widget.RecyclerView;
 
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.games.GameAdapter;
-import com.alchemistmoz.balochi.games.repetition.RepetitionGame;
+import com.alchemistmoz.balochi.games.GameItem;
+import com.alchemistmoz.balochi.games.repetition.FaceGame;
 import com.alchemistmoz.balochi.misc.CustomToolbar;
 import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
+
+import java.util.ArrayList;
 
 public class RepetitionActivity extends AppCompatActivity {
 
@@ -17,7 +20,7 @@ public class RepetitionActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     // Allow for global access to the game
-    // FaceGame faceGame;
+    FaceGame faceGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +34,9 @@ public class RepetitionActivity extends AppCompatActivity {
         // Initialize the Audio Manager AUDIO_SERVICE
         SoundPlayback.initializeManagerService(this);
 
-        // initiateGame();
+        initiateGame();
 
-        // GameUtils.addRepetitionItemClickSupport(recyclerView, faceGame);
+        GameUtils.addFaceItemClickSupport(recyclerView, faceGame);
     }
 
     /**
@@ -45,19 +48,14 @@ public class RepetitionActivity extends AppCompatActivity {
     private void initiateGame() {
 
         // Setup recycler view as a grid layout
-        recyclerView = GameUtils.initGridRecyclerView(this, R.id.recycler_view_grid, 3);
+        recyclerView = GameUtils.initGridRecyclerView(this, R.id.recycler_view_grid, 12);
 
         // Initiate a new round of the counting game
-//        faceGame = new faceGame(recyclerView, numberImage);
-//
-//        GameAdapter adapter = new GameAdapter(this, faceGame.getActualItems(), R.layout.count_item);
+        faceGame = new FaceGame(recyclerView);
 
-//        recyclerView.setAdapter(adapter);
+        GameAdapter adapter = new GameAdapter(this, faceGame.getActualItems(), R.layout.face_item);
 
-        // Set adapter to be used for updating the UI during the game
-//        faceGame.useAdapter(adapter);
-
-        GameUtils.runSlideUpAnim(recyclerView, GameUtils.COUNT);
+        recyclerView.setAdapter(adapter);
 
     }
 
@@ -72,9 +70,9 @@ public class RepetitionActivity extends AppCompatActivity {
         // Release the media player resources
         SoundPlayback.releaseMediaPlayer();
 
-//        if (isFinishing()) {
-//            // Remove all pending posts of callbacks and sent messages.
-//            faceGame.removePendingPosts();
-//        }
+        if (isFinishing()) {
+            // Remove all pending posts of callbacks and sent messages.
+            faceGame.removePendingPosts();
+        }
     }
 }
