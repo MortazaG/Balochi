@@ -42,6 +42,12 @@
             android:parentActivityName=".categories.numbers.NumbersActivity"
             android:screenOrientation="sensorLandscape" />
 
+        <!-- Face Activity -->
+        <activity
+            android:name=".categories.face.FaceActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorLandscape"/>
+
         <!-- Colors Activity -->
         <activity
             android:name=".categories.colors.ColorsActivity"
