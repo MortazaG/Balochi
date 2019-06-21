@@ -4,11 +4,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 
 import com.alchemistmoz.balochi.R;
-import com.alchemistmoz.balochi.games.GameAdapter;
 import com.alchemistmoz.balochi.games.GameItem;
 import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
@@ -53,23 +50,8 @@ import java.util.ArrayList;
  */
 public class FaceGame {
 
-    // The number of selected views
-    private int nrOfSelectedItems;
-
-    // The total number of selected views
-    private int totalNrOfSelectedItems;
-
-    // The gameItems that will be used for generating an actualItems list
-    private ArrayList<GameItem> gameItems;
-
-    // The gameItems that will be visible during each round of the game
+    // The gameItems that will be visible during the game
     private ArrayList<GameItem> actualItems;
-
-    // RecyclerView from Activity needed for running animations and fetching context
-    private RecyclerView recyclerView;
-
-    // Adapter to be used for updating the RecyclerView UI
-    private GameAdapter viewAdapter;
 
     // Used to store the context of the activity
     private Context context;
@@ -77,48 +59,94 @@ public class FaceGame {
     // To be used for delaying posts
     private Handler handler;
 
-    // Allow for delaying the intro for each round and thus providing a better user experience
-    private Runnable introRunnable;
-
     /**
      * Sets the game off by initiating default values and the ArrayLists that will be used
      * in the game.
      *
      * @param recyclerView - The games recyclerView
      */
-    public FaceGame(RecyclerView recyclerView, ArrayList<GameItem> gameItems) {
-        this.recyclerView = recyclerView;
-        this.gameItems = gameItems;
-
+    public FaceGame(RecyclerView recyclerView) {
         context = recyclerView.getContext();
 
-        nrOfSelectedItems = 0;
-        totalNrOfSelectedItems = 0;
-
         handler = new Handler();
-
         actualItems = new ArrayList<>();
 
         // Initiate the first round of the game with a list of actualItems
-        generateActualItems();
+        initiateActualItems();
 
     }
 
     /**
      * Generate the game Items that will be used to interact with in the game for one round.
      */
-    private void generateActualItems() {
+    private void initiateActualItems() {
+        
+        // Add new GameItem objects to the ArrayList
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
 
-        for (int x = 0; x < 2; x++) {
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
 
-            // The totalNrOfSelectedItems allows for going through the gameItems in concurrent order
-            int index = x + totalNrOfSelectedItems;
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
 
-            GameItem currentItem = gameItems.get(index);
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
 
-            // Add a new instance of the current item
-            actualItems.add(new GameItem(currentItem.getImageResourceID(), currentItem.getAudioResourceID()));
-        }
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+
     }
 
     /**
@@ -128,13 +156,6 @@ public class FaceGame {
      */
     public ArrayList<GameItem> getActualItems() {
         return actualItems;
-    }
-
-    /**
-     * @param recyclerViewAdapter - The RecyclerView viewAdapter to be used for updating the UI.
-     */
-    public void useAdapter(GameAdapter recyclerViewAdapter) {
-        viewAdapter = recyclerViewAdapter;
     }
 
     /**
@@ -148,24 +169,15 @@ public class FaceGame {
         // Store the gameItem that the user has currently selected
         GameItem selectedItem = actualItems.get(position);
 
-        if (GameUtils.isTouchEnabled() && !selectedItem.isSelected()) {
+        if (GameUtils.isTouchEnabled()) {
 
             // Disable further touch events
             GameUtils.setTouchEnabled(false);
 
             Utilities.runOnTouchAnim(context, view);
 
-            // Increase the number of selected items for this round
-            nrOfSelectedItems += 1;
-
-            // Incrementally increase the total number of selected items
-            totalNrOfSelectedItems += 1;
-
             // Initialize playback of the sound related to the item the user has selected
             SoundPlayback.play(context, selectedItem.getAudioResourceID());
-
-            // Set selected to true so that visibility changes to INVISIBLE
-            selectedItem.setSelected(true);
 
             // Check game status and enable touch events after sound playback
             handler.postDelayed(new Runnable() {
@@ -174,68 +186,9 @@ public class FaceGame {
 
                     GameUtils.setTouchEnabled(true);
 
-                    // Update the UI
-                    viewAdapter.notifyItemChanged(position);
-
-                    checkGameStatus();
-
                 }
             }, SoundPlayback.getSoundDuration());
         }
-    }
-
-    /**
-     * Check the current status of the game. If both items have been selected,
-     * then bring the next two i.e. start the next round.
-     */
-    private void checkGameStatus() {
-        if (nrOfSelectedItems >= 2) {
-            nextRound();
-        }
-    }
-
-    /**
-     * Initiate the next round of the game by generating new items and updating the UI.
-     */
-    private void nextRound() {
-
-        if (totalNrOfSelectedItems == gameItems.size()) {
-
-            resetGame();
-
-        }
-
-        // Clear actualItems and generate new ones
-        actualItems.clear();
-        generateActualItems();
-
-        // Reset the number of selected items
-        nrOfSelectedItems = 0;
-
-        // Update UI
-        viewAdapter.notifyDataSetChanged();
-
-        // Run the slide up animation for the new items
-        runLayoutAnimation();
-    }
-
-    /**
-     * Reset the initial values in order to restart the game.
-     */
-    private void resetGame() {
-        nrOfSelectedItems = 0;
-        totalNrOfSelectedItems = 0;
-    }
-
-    /**
-     * Run the slide up layout animation for all items upon each new round.
-     */
-    private void runLayoutAnimation() {
-        final LayoutAnimationController controller =
-                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_slide_up);
-
-        recyclerView.setLayoutAnimation(controller);
-        recyclerView.scheduleLayoutAnimation();
     }
 
     /**
