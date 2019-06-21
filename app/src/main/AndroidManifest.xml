@@ -46,7 +46,11 @@
         <activity
             android:name=".categories.face.FaceActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".categories.face.RepetitionActivity"
+            android:parentActivityName=".categories.face.FaceActivity"
+            android:screenOrientation="sensorLandscape" />
 
         <!-- Colors Activity -->
         <activity
