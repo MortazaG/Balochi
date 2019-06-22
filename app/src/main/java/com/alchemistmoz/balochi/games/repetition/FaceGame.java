@@ -63,10 +63,8 @@ public class FaceGame {
      * Sets the game off by initiating default values and the ArrayLists that will be used
      * in the game.
      *
-     * @param recyclerView - The games recyclerView
      */
-    public FaceGame(RecyclerView recyclerView) {
-        context = recyclerView.getContext();
+    public FaceGame() {
 
         handler = new Handler();
         actualItems = new ArrayList<>();
