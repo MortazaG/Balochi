@@ -92,24 +92,7 @@ public class FaceGame {
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
 
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
@@ -131,6 +114,15 @@ public class FaceGame {
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
 
@@ -144,9 +136,61 @@ public class FaceGame {
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
         actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
 
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
+        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
     }
 
     /**
