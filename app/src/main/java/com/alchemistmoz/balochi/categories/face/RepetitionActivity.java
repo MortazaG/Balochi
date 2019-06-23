@@ -2,12 +2,13 @@ package com.alchemistmoz.balochi.categories.face;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.games.repetition.FaceGame;
 import com.alchemistmoz.balochi.misc.CustomToolbar;
-import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
 
 public class RepetitionActivity extends AppCompatActivity {
@@ -27,10 +28,21 @@ public class RepetitionActivity extends AppCompatActivity {
         // Initialize the Audio Manager AUDIO_SERVICE
         SoundPlayback.initializeManagerService(this);
 
-        // Initiate a new round of the counting game
-        faceGame = new FaceGame();
+        ImageView imageView = findViewById(R.id.face_image);
+        ImageView imageAreasView = findViewById(R.id.face_image_areas);
 
-//        GameUtils.addFaceItemClickSupport(recyclerView, faceGame);
+        // Initiate a new round of the counting game
+        faceGame = new FaceGame(imageAreasView);
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                faceGame.selectItem(view, motionEvent);
+                return true;
+            }
+        });
+
     }
 
     /**
