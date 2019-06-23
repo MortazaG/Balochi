@@ -56,9 +56,5 @@ public class RepetitionActivity extends AppCompatActivity {
         // Release the media player resources
         SoundPlayback.releaseMediaPlayer();
 
-        if (isFinishing()) {
-            // Remove all pending posts of callbacks and sent messages.
-            faceGame.removePendingPosts();
-        }
     }
 }

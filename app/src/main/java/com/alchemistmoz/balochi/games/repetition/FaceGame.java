@@ -133,15 +133,4 @@ public class FaceGame {
         return true;
     }
 
-    /**
-     * Remove all pending posts of callbacks and sent messages.
-     */
-    public void removePendingPosts() {
-
-        if (handler != null) {
-
-            handler.removeCallbacksAndMessages(null);
-
-        }
-    }
 }
