@@ -1,18 +1,16 @@
 package com.alchemistmoz.balochi.games.repetition;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Handler;
-import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.alchemistmoz.balochi.R;
-import com.alchemistmoz.balochi.games.GameItem;
 import com.alchemistmoz.balochi.misc.GameUtils;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
-import com.alchemistmoz.balochi.misc.Utilities;
-
-import java.util.ArrayList;
 
 
 /**
@@ -50,8 +48,8 @@ import java.util.ArrayList;
  *
  */
 public class FaceGame {
-
-    private ArrayList<GameItem> gameItems;
+    
+    private ImageView imageAreasView;
 
     // To be used for delaying posts
     private Handler handler;
@@ -61,11 +59,10 @@ public class FaceGame {
      * in the game.
      *
      */
-    public FaceGame() {
+    public FaceGame(ImageView imageAreasView) {
+        this.imageAreasView = imageAreasView;
+        
         handler = new Handler();
-        gameItems = new ArrayList<>();
-
-
     }
 
     /**
@@ -75,28 +72,65 @@ public class FaceGame {
      */
     public void selectItem(View view, MotionEvent motionEvent) {
 
+        final int action = motionEvent.getAction();
+        final int eventX = (int) motionEvent.getX();
+        final int eventY = (int) motionEvent.getY();
+
         Context context = view.getContext();
 
-        if (GameUtils.isTouchEnabled()) {
+        if (GameUtils.isTouchEnabled() && (action == MotionEvent.ACTION_UP)) {
 
-            // Disable further touch events
-            GameUtils.setTouchEnabled(false);
+            int touchColor = getHotspotColor(eventX, eventY);
 
-            Utilities.runOnTouchAnim(context, view);
+            playSelectedAreaSound(context, touchColor);
 
-            // Initialize playback of the sound related to the item the user has selected
-//            SoundPlayback.play(context, selectedItem.getAudioResourceID());
-
-            // Check game status and enable touch events after sound playback
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    GameUtils.setTouchEnabled(true);
-
-                }
-            }, SoundPlayback.getSoundDuration());
         }
+    }
+
+    private void playSelectedAreaSound(Context context, int touchColor) {
+
+        // Disable further touch events
+        GameUtils.setTouchEnabled(false);
+
+        if (closeMatch(Color.RED, touchColor)) SoundPlayback.play(context, R.raw.colors_red);
+        if (closeMatch(Color.WHITE, touchColor)) SoundPlayback.play(context, R.raw.colors_white);
+        if (closeMatch(Color.GREEN, touchColor)) SoundPlayback.play(context, R.raw.colors_green);
+        if (closeMatch(Color.BLUE, touchColor)) SoundPlayback.play(context, R.raw.colors_blue);
+        if (closeMatch(Color.BLACK, touchColor)) SoundPlayback.play(context, R.raw.colors_black);
+        if (closeMatch(Color.YELLOW, touchColor)) SoundPlayback.play(context, R.raw.colors_yellow);
+        if (closeMatch(Color.LTGRAY, touchColor)) SoundPlayback.play(context, R.raw.colors_grey);
+        if (closeMatch(Color.GRAY, touchColor)) SoundPlayback.play(context, R.raw.colors_grey);
+        if (closeMatch(Color.DKGRAY, touchColor)) SoundPlayback.play(context, R.raw.colors_grey);
+        if (closeMatch(Color.CYAN, touchColor)) SoundPlayback.play(context, R.raw.colors_blue);
+
+        // Enable touch events after sound playback
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                GameUtils.setTouchEnabled(true);
+
+            }
+        }, SoundPlayback.getSoundDuration());
+
+    }
+
+    private int getHotspotColor(int x, int y) {
+        imageAreasView.setDrawingCacheEnabled(true);
+        Bitmap hotspots = Bitmap.createBitmap(imageAreasView.getDrawingCache());
+        imageAreasView.setDrawingCacheEnabled(false);
+        return hotspots.getPixel(x, y);
+    }
+
+    private boolean closeMatch (int color1, int color2) {
+
+        int tolerance = 25;
+
+        if (Math.abs (Color.red (color1) - Color.red (color2)) > tolerance ) return false;
+        if (Math.abs (Color.green (color1) - Color.green (color2)) > tolerance ) return false;
+        if (Math.abs (Color.blue (color1) - Color.blue (color2)) > tolerance ) return false;
+
+        return true;
     }
 
     /**
