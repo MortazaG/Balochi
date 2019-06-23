@@ -1,5 +1,6 @@
 package com.alchemistmoz.balochi.categories.face;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ public class RepetitionActivity extends AppCompatActivity {
     // Allow for global access to the game
     FaceGame faceGame;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
