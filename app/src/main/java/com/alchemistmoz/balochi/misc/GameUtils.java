@@ -157,24 +157,6 @@ public final class GameUtils {
     }
 
     /**
-     * Add ItemClickSupport for the face game items.
-     *
-     * @param recyclerView of the RepetitionActivity.
-     * @param faceGame instance of the game.
-     */
-    public static void addFaceItemClickSupport(RecyclerView recyclerView, final FaceGame faceGame) {
-
-        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
-                faceGame.selectItem(position, v);
-
-            }
-        });
-    }
-
-    /**
      * This animation is used for recyclerView items in from bottom to top.
      *
      * @param recyclerView - The recyclerView to apply animation to
