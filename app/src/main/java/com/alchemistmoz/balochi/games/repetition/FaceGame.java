@@ -3,6 +3,7 @@ package com.alchemistmoz.balochi.games.repetition;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.alchemistmoz.balochi.R;
@@ -50,11 +51,7 @@ import java.util.ArrayList;
  */
 public class FaceGame {
 
-    // The gameItems that will be visible during the game
-    private ArrayList<GameItem> actualItems;
-
-    // Used to store the context of the activity
-    private Context context;
+    private ArrayList<GameItem> gameItems;
 
     // To be used for delaying posts
     private Handler handler;
@@ -65,151 +62,20 @@ public class FaceGame {
      *
      */
     public FaceGame() {
-
         handler = new Handler();
-        actualItems = new ArrayList<>();
+        gameItems = new ArrayList<>();
 
-        // Initiate the first round of the game with a list of actualItems
-        initiateActualItems();
 
-    }
-
-    /**
-     * Generate the game Items that will be used to interact with in the game for one round.
-     */
-    private void initiateActualItems() {
-        
-        // Add new GameItem objects to the ArrayList
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-        actualItems.add(new GameItem(R.drawable.face_item_blank, R.raw.colors_green));
-    }
-
-    /**
-     * Used in the activity when creating an instance of the adapter.
-     *
-     * @return list of items to be used during the game.
-     */
-    public ArrayList<GameItem> getActualItems() {
-        return actualItems;
     }
 
     /**
      * Play the sound of the selected item and make it INVISIBLE,
      * then check for the current status of the game.
      *
-     * @param position - of the view that the user has selected
      */
-    public void selectItem(final int position, View view) {
+    public void selectItem(View view, MotionEvent motionEvent) {
 
-        // Store the gameItem that the user has currently selected
-        GameItem selectedItem = actualItems.get(position);
+        Context context = view.getContext();
 
         if (GameUtils.isTouchEnabled()) {
 
@@ -219,7 +85,7 @@ public class FaceGame {
             Utilities.runOnTouchAnim(context, view);
 
             // Initialize playback of the sound related to the item the user has selected
-            SoundPlayback.play(context, selectedItem.getAudioResourceID());
+//            SoundPlayback.play(context, selectedItem.getAudioResourceID());
 
             // Check game status and enable touch events after sound playback
             handler.postDelayed(new Runnable() {
