@@ -93,7 +93,7 @@ public class FaceGame {
         GameUtils.setTouchEnabled(false);
 
         if (closeMatch(Color.RED, touchColor)) SoundPlayback.play(context, R.raw.colors_red);
-        if (closeMatch(Color.WHITE, touchColor)) SoundPlayback.play(context, R.raw.colors_white);
+        if (closeMatch(Color.MAGENTA, touchColor)) SoundPlayback.play(context, R.raw.colors_white);
         if (closeMatch(Color.GREEN, touchColor)) SoundPlayback.play(context, R.raw.colors_green);
         if (closeMatch(Color.BLUE, touchColor)) SoundPlayback.play(context, R.raw.colors_blue);
         if (closeMatch(Color.BLACK, touchColor)) SoundPlayback.play(context, R.raw.colors_black);
@@ -132,5 +132,4 @@ public class FaceGame {
 
         return true;
     }
-
 }
