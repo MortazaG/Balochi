@@ -3,10 +3,12 @@ package com.alchemistmoz.balochi.games.repetition;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.misc.GameUtils;
@@ -55,7 +57,7 @@ public class FaceGame {
     /**
      * Sets the game off by initiating default values.
      *
-     * @param imageAreasView - Image map with the clickable areas.
+     * @param imageAreasView - Image map with the clickable areas
      */
     public FaceGame(ImageView imageAreasView) {
         this.imageAreasView = imageAreasView;
@@ -67,8 +69,8 @@ public class FaceGame {
      * Identify where the user has touched and play the
      * corresponding body part sound.
      *
-     * @param view - The face image view.
-     * @param motionEvent - The action and position of the users touch.
+     * @param view - The face image view
+     * @param motionEvent - The action and position of the users touch
      */
     public void selectItem(View view, MotionEvent motionEvent) {
 
@@ -80,16 +82,22 @@ public class FaceGame {
         // Context of the activity fetched from the view
         Context context = view.getContext();
 
-
         if ((action == MotionEvent.ACTION_UP) && GameUtils.isTouchEnabled()) {
 
-            int touchColor = getHotspotColor(eventX, eventY);
+            int touchColor = getSelectedPixelColor(eventX, eventY);
 
             playSelectedAreaSound(context, touchColor);
 
         }
     }
 
+    /**
+     * Initiate playback of the sound corresponding to the specified colors
+     * in the mapped image.
+     *
+     * @param context - of the game
+     * @param touchColor - user selected color
+     */
     private void playSelectedAreaSound(Context context, int touchColor) {
 
         // Disable further touch events
@@ -118,20 +126,36 @@ public class FaceGame {
 
     }
 
-    private int getHotspotColor(int x, int y) {
-        imageAreasView.setDrawingCacheEnabled(true);
-        Bitmap hotspots = Bitmap.createBitmap(imageAreasView.getDrawingCache());
-        imageAreasView.setDrawingCacheEnabled(false);
-        return hotspots.getPixel(x, y);
+    /**
+     * Fetch the bitmap for the mapped image with the selectable areas
+     * and then return the color at the selected position.
+     *
+     * @param x - axis coordinates of the event
+     * @param y - axis coordinates of the event
+     * @return Color of the selected pixel
+     */
+    private int getSelectedPixelColor(int x, int y) {
+        Bitmap selectableAreas = ((BitmapDrawable) imageAreasView.getDrawable()).getBitmap();
+        return selectableAreas.getPixel(x, y);
     }
 
-    private boolean closeMatch (int color1, int color2) {
+    /**
+     * Check if the selected color matches the given color,
+     * within the specified tolerance level. This is done by comparing
+     * three channels R, G and B.
+     *
+     * @param givenColor - Pre-determined color
+     * @param touchColor - User selected color
+     * @return true only if all the comparisons are true
+     */
+    private boolean closeMatch (int givenColor, int touchColor) {
 
         int tolerance = 25;
 
-        if (Math.abs (Color.red (color1) - Color.red (color2)) > tolerance ) return false;
-        if (Math.abs (Color.green (color1) - Color.green (color2)) > tolerance ) return false;
-        if (Math.abs (Color.blue (color1) - Color.blue (color2)) > tolerance ) return false;
+        // Compare the three channels
+        if (Math.abs (Color.red (givenColor) - Color.red (touchColor)) > tolerance ) return false;
+        if (Math.abs (Color.green (givenColor) - Color.green (touchColor)) > tolerance ) return false;
+        if (Math.abs (Color.blue (givenColor) - Color.blue (touchColor)) > tolerance ) return false;
 
         return true;
     }
