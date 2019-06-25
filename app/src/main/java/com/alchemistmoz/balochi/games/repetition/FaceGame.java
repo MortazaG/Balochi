@@ -14,50 +14,48 @@ import com.alchemistmoz.balochi.misc.SoundPlayback;
 
 
 /**
- * This game is run in conjunction with the custom RecyclerView Adapter class GameAdapter,
- * SoundPlayback, as well as the GameItem class. GameItem class is used to create objects
- * that will be shown and used during the game, almost always with an image and sound.
+ * This game is run in conjunction with SoundPlayback and GameUtils.
+ * The layout of the game is defined in layout_face_game.xml.
  *
- * The layout of the game is defined in layout_grid.xml and game_item.xml.
- *
- * Game description: A descriptive intro sound is played and two related items are shown.
- *                   After the items have been selected by the user, the above is repeated.
- *                   This repeats until the end of the items list is reached and then the game
- *                   starts from the beginning.
+ * Game description: Clickable picture of the face is presented to the user.
+ *                   Clicking a specific part of the face will initiate playback
+ *                   of the word for that part.
  *
  * The game is implemented in the Activity class from which it will be run.
  *
  * How to implement the game:
- * - Two lists are needed: * Sound intros list
- *                         * Game items list
  *
- * - Initiate RecyclerView with Utilities.initGridRecyclerView(this, R.id.recycler_view_grid, 2).
+ * - Use the following in onCreate():
  *
- * - Create a new instance of the game with three arguments, recycleView, intros and gameItems.
+ *         // Find and store the image views to be used for the game
+ *         ImageView imageView = findViewById(R.id.face_image);
+ *         ImageView imageAreasView = findViewById(R.id.face_image_areas);
  *
- * - Create a new instance of the GameAdapter with three arguments, context, the list of actualItems
- *   that will be used during the game (obtained with repetitionGame.getActualItems()) and
- *   R.layout.xxx for the game item layout.
+ *         // Initiate a new round of the counting game
+ *         faceGame = new FaceGame(imageAreasView);
  *
- * - Set the adapter for the recyclerView with .setAdapter(adapter) and for the game with
- *   .useAdapter(adapter).
+ *         imageView.setOnTouchListener(new View.OnTouchListener() {
+ *             // @Override
+ *             public boolean onTouch(View view, MotionEvent motionEvent) {
  *
- * - Use ItemClickSupport so that all objects that are selected triggers repetitionGame.selectItem(pos).
- *   Utilities.runOnTouchAnim(RepetitionActivity.this, v); should be run first, then
- *   run .selectItem(pos) with handler.postDelayed after Utilities.ON_TOUCH_ANIM_LENGTH.
+ *                 faceGame.selectItem(view, motionEvent);
+ *                 return true;
+ *             }
+ *         });
  *
  */
 public class FaceGame {
-    
+
+    // The image map with the clickable areas
     private ImageView imageAreasView;
 
     // To be used for delaying posts
     private Handler handler;
 
     /**
-     * Sets the game off by initiating default values and the ArrayLists that will be used
-     * in the game.
+     * Sets the game off by initiating default values.
      *
+     * @param imageAreasView - Image map with the clickable areas.
      */
     public FaceGame(ImageView imageAreasView) {
         this.imageAreasView = imageAreasView;
@@ -66,19 +64,24 @@ public class FaceGame {
     }
 
     /**
-     * Play the sound of the selected item and make it INVISIBLE,
-     * then check for the current status of the game.
+     * Identify where the user has touched and play the
+     * corresponding body part sound.
      *
+     * @param view - The face image view.
+     * @param motionEvent - The action and position of the users touch.
      */
     public void selectItem(View view, MotionEvent motionEvent) {
 
+        // Store the users action and X/Y coordinates of the touch event
         final int action = motionEvent.getAction();
         final int eventX = (int) motionEvent.getX();
         final int eventY = (int) motionEvent.getY();
 
+        // Context of the activity fetched from the view
         Context context = view.getContext();
 
-        if (GameUtils.isTouchEnabled() && (action == MotionEvent.ACTION_UP)) {
+
+        if ((action == MotionEvent.ACTION_UP) && GameUtils.isTouchEnabled()) {
 
             int touchColor = getHotspotColor(eventX, eventY);
 

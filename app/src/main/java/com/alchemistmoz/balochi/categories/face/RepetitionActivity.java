@@ -30,6 +30,7 @@ public class RepetitionActivity extends AppCompatActivity {
         // Initialize the Audio Manager AUDIO_SERVICE
         SoundPlayback.initializeManagerService(this);
 
+        // Find and store the image views to be used for the game
         ImageView imageView = findViewById(R.id.face_image);
         ImageView imageAreasView = findViewById(R.id.face_image_areas);
 
