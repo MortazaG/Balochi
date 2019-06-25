@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Add new Category objects to the ArrayList
         categories.add(new Category(R.drawable.numbers5, R.raw.menu_numbers, NumbersActivity.class));
-        categories.add(new Category(R.drawable.fruitveggies1, R.raw.menu_fruitveggies, FaceActivity.class));
+        categories.add(new Category(R.drawable.face_item2, R.raw.menu_fruitveggies, FaceActivity.class));
         categories.add(new Category(R.drawable.colors3, R.raw.menu_colors, ColorsActivity.class));
         categories.add(new Category(R.drawable.family1, R.raw.menu_family, FamilyActivity.class));
         categories.add(new Category(R.drawable.fruitveggies1, R.raw.menu_fruitveggies, FruitVeggiesActivity.class));
