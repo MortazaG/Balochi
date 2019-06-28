@@ -50,7 +50,7 @@ public class FaceActivity extends AppCompatActivity {
         final ArrayList<Category> categories = new ArrayList<>();
 
         // Add new Category objects to the ArrayList
-        categories.add(new Category(R.drawable.face_item2, R.raw.menu_repetition, RepetitionActivity.class));
+        categories.add(new Category(R.drawable.face_item4, R.raw.menu_repetition, RepetitionActivity.class));
         categories.add(new Category(R.drawable.colors_menu_memory, R.raw.menu_repetition, MemoryActivity.class));
         categories.add(new Category(R.drawable.colors_menu_audiomatch5, R.raw.menu_repetition, AudioMatchActivity.class));
 
