@@ -2,8 +2,9 @@ package com.alchemistmoz.balochi.games.repetition;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,7 +61,7 @@ public class FaceGame {
      */
     public FaceGame(ImageView imageAreasView) {
         this.imageAreasView = imageAreasView;
-        
+
         handler = new Handler();
     }
 
@@ -126,16 +127,32 @@ public class FaceGame {
     }
 
     /**
-     * Fetch the bitmap for the mapped image with the selectable areas
-     * and then return the color at the selected position.
      *
      * @param x - axis coordinates of the event
      * @param y - axis coordinates of the event
      * @return Color of the selected pixel
      */
     private int getSelectedPixelColor(int x, int y) {
-        Bitmap selectableAreas = ((BitmapDrawable) imageAreasView.getDrawable()).getBitmap();
-        return selectableAreas.getPixel(x, y);
+
+        int pixelColor = 0;
+        int width = imageAreasView.getMeasuredWidth();
+        int height = imageAreasView.getMeasuredHeight();
+
+        if (width > 0 && height > 0) {
+            Bitmap imageAreasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(imageAreasBitmap);
+            Drawable background = imageAreasView.getBackground();
+
+            if (background != null) {
+                background.draw(canvas);
+            }
+            imageAreasView.draw(canvas);
+            pixelColor = imageAreasBitmap.getPixel(x, y);
+
+            imageAreasBitmap.recycle();
+        }
+
+        return pixelColor;
     }
 
     /**
