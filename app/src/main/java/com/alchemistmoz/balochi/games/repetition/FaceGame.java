@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.misc.GameUtils;
@@ -127,6 +128,16 @@ public class FaceGame {
     }
 
     /**
+     * Create the color mapped image and detect the color of the
+     * selected pixel.
+     *
+     * In simple terms:
+     * - Bitmap is the frame and the colors
+     * - Canvas is, well it's the canvas of the painting
+     * - imageAreasView.draw(), basically draws ("paints")
+     *   whatever is in the view on the canvas
+     * - getPixel() returns the color of the selected pixel
+     *   from the newly created canvas
      *
      * @param x - axis coordinates of the event
      * @param y - axis coordinates of the event
@@ -138,15 +149,21 @@ public class FaceGame {
         int width = imageAreasView.getMeasuredWidth();
         int height = imageAreasView.getMeasuredHeight();
 
+        // Only run if imageAreasView has done a full layout,
+        // in which case the measured width and height should be > 0.
         if (width > 0 && height > 0) {
-            Bitmap imageAreasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(imageAreasBitmap);
-            Drawable background = imageAreasView.getBackground();
 
-            if (background != null) {
-                background.draw(canvas);
-            }
+            // Returns a mutable bitmap w/ the specified width and height.
+            // The Bitmap.config describes how the pixels are stored, basically the quality of the colors.
+            Bitmap imageAreasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+            // The canvas hosts the draw cells, i.e. writes into the bitmap
+            Canvas canvas = new Canvas(imageAreasBitmap);
+
+            // Manually render this view to the given Canvas
             imageAreasView.draw(canvas);
+
+            // Store the color of the selected pixel
             pixelColor = imageAreasBitmap.getPixel(x, y);
 
             imageAreasBitmap.recycle();
@@ -158,7 +175,11 @@ public class FaceGame {
     /**
      * Check if the selected color matches the given color,
      * within the specified tolerance level. This is done by comparing
-     * three channels R, G and B.
+     * three channels R, G and B, which range from 0-255 in value.
+     *
+     * So if all three values are a close match, then their subtraction with each other
+     * should be less than 25. Which means that the selected color and the given
+     * color are most likely the same color.
      *
      * @param givenColor - Pre-determined color
      * @param touchColor - User selected color
