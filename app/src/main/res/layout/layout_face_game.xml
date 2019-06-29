@@ -9,7 +9,6 @@
         android:id="@+id/frameLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/main_toolbar"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +20,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/image"
             android:scaleType="fitCenter"
+            android:background="@color/colorBackground"
             android:src="@drawable/face_item_areas4"
             android:visibility="invisible" />
 
@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/image"
             android:scaleType="fitCenter"
-            android:background="?attr/selectableItemBackground"
             android:src="@drawable/face_item4" />
 
     </FrameLayout>
