@@ -35,7 +35,7 @@ import java.util.ArrayList;
  * - Two lists are needed: * Sound intros list
  *                         * Game items list
  *
- * - Initiate RecyclerView with Utilities.initGridRecyclerView(this, R.id.recycler_view_grid, 2).
+ * - Initiate RecyclerView with GameUtils.initGridRecyclerView(this, R.id.recycler_view_grid, 2).
  *
  * - Create a new instance of the game with three arguments, recycleView, intros and gameItems.
  *
@@ -51,7 +51,7 @@ import java.util.ArrayList;
  *
  *
  * - Add ItemClickSupport via GameUtils:
- *          GameUtils.addAudioMatchItemClickSupport(recyclerView, repetitionGame);
+ *          GameUtils.addRepetitionI(recyclerView, repetitionGame);
  *
  * - Add the following in onPause() of the activity:
  *           // Release the media player resources
@@ -59,7 +59,7 @@ import java.util.ArrayList;
  *
  *         if (isFinishing()) {
  *             // Remove all pending posts of callbacks and sent messages.
- *             audioMatchGame.removePendingPosts();
+ *             repetitionGame.removePendingPosts();
  *         }
  *
  */

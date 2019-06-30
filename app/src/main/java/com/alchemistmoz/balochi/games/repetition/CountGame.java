@@ -45,9 +45,20 @@ import java.util.ArrayList;
  * - Set the adapter for the recyclerView with .setAdapter(adapter) and for the game with
  *   .useAdapter(adapter).
  *
- * - Use ItemClickSupport so that all objects that are selected triggers countGame.selectItem(pos).
- *   Utilities.runOnTouchAnim(RepetitionActivity.this, v); should be run first, then
- *   run .selectItem(pos) with handler.postDelayed after Utilities.ON_TOUCH_ANIM_LENGTH.
+ * - Run slide up animation for all items:
+ *          GameUtils.runSlideUpAnim(recyclerView, GameUtils.COUNT);
+ *
+ * - Add ItemClickSupport via GameUtils:
+ *          GameUtils.addCountItemClickSupport(recyclerView, countGame);
+ *
+ * - Add the following in onPause() of the activity:
+ *           // Release the media player resources
+ *         SoundPlayback.releaseMediaPlayer();
+ *
+ *         if (isFinishing()) {
+ *             // Remove all pending posts of callbacks and sent messages.
+ *             countGame.removePendingPosts();
+ *         }
  *
  */
 public class CountGame {

@@ -23,7 +23,7 @@ import java.util.Collections;
  *
  * The layout of the game is defined in layout_grid.xml and memory_item.xml.
  *
- * Game description: Simple memory game starting with three pairs, workings its way up to seven.
+ * Game description: Simple memory game starting with two pairs, workings its way up to seven.
  *
  * The game is to be implemented in the MemoryActivity class from which it will be run.
  *
@@ -31,19 +31,31 @@ import java.util.Collections;
  * - Initiate a memoryCards ArrayList<MemoryCard> and all the items to be used in the game.
  *
  * - Initiate RecyclerView with the MemoryGame.initLinearRecyclerView(activity: this,
- *   R.id.recycler_view_grid) static method. recyclerView needs to be a global variable, so that
- *   animations can be run during onResume().
+ *   R.id.recycler_view_grid) static method.
  *
  * - Create a new instance of the game with two argument, the recyclerView and the list
  *   of memoryCards.
  *
  * - Create a new instance of the MemoryAdapter with two arguments, context and the placeholder
- *   cards that will be used. The placeholders are obtained with countGame.getMemoryCardPlaceholders().
+ *   cards that will be used. The placeholders are obtained with memoryGame.getMemoryCardPlaceholders().
  *
  * - Set the adapter for the recyclerView with .setAdapter(adapter) and for the game with
  *   .useAdapter(adapter).
  *
- * - Use ItemClickSupport so that all objects that are selected trigger memoryGame.selectCard(pos).
+ * - Run slide up animation for all items:
+ *          GameUtils.runSlideUpAnim(recyclerView, GameUtils.MEMORY);
+ *
+ * - Add ItemClickSupport:
+ *          GameUtils.addMemoryCardClickSupport(recyclerView, memoryGame);
+ *
+ * - Add the following in onPause() of the activity:
+ *           // Release the media player resources
+ *         SoundPlayback.releaseMediaPlayer();
+ *
+ *         if (isFinishing()) {
+ *             // Remove all pending posts of callbacks and sent messages.
+ *             memoryGame.removePendingPosts();
+ *         }
  *
  * The game generates a list of memory card back sides (placeholders ) to hide all the cards,
  * as well as a list of memory card front sides, which are shown when the user selects a card.
@@ -388,7 +400,8 @@ public class MemoryGame {
     }
 
     /**
-     * Run the slide up layout animation for all memory cards.
+     * Run the slide up layout animation for all items.
+     * To be used in the beginning of every round.
      */
     private void runLayoutAnimation() {
         final LayoutAnimationController controller =
