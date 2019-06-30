@@ -114,6 +114,8 @@ public class AudioMatchGame {
      * in the game.
      *
      * @param recyclerView - The games recyclerView
+     * @param gameItems - List of items to be used in the game
+     * @param speakerPhoneView - Speaker phone ImageView
      */
     public AudioMatchGame(RecyclerView recyclerView, ArrayList<GameItem> gameItems, ImageView speakerPhoneView) {
         this.recyclerView = recyclerView;
@@ -153,8 +155,7 @@ public class AudioMatchGame {
 
 
     /**
-     * Set the speaker phone image to be shown to the top and
-     * make it clickable.
+     * Set the speaker phone image to be shown and make it clickable
      */
     private void initiateSpeakerPhoneView() {
 
@@ -223,7 +224,7 @@ public class AudioMatchGame {
     }
 
     /**
-     * Play a descriptive sound intro for the items of the current round.
+     * Play sound intro for the correct item of the current round.
      */
     private void playCorrectItemIntro() {
 
@@ -241,10 +242,11 @@ public class AudioMatchGame {
     }
 
     /**
-     * Play the sound of the selected item and make it INVISIBLE,
-     * then check for the current status of the game.
+     * Play the sound of the selected item and check if it
+     * matches with the correct item.
      *
      * @param position - of the view that the user has selected
+     * @param view - actual view the user has selected
      */
     public void selectItem(final int position, View view) {
 
@@ -366,7 +368,8 @@ public class AudioMatchGame {
     }
 
     /**
-     * Run the slide up layout animation for all items upon each new round.
+     * Run the slide up layout animation for all items.
+     * To be used in the beginning of every round.
      */
     private void runLayoutAnimation() {
         final LayoutAnimationController controller =
