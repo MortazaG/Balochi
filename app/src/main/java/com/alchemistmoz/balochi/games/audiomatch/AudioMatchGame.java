@@ -25,22 +25,25 @@ import java.util.Collections;
  * SoundPlayback, as well as the GameItem class. GameItem class is used to create objects
  * that will be shown and used during the game, almost always with an image and sound.
  *
- * The layout of the game is defined in layout_grid.xml and game_item.xml.
+ * The layout of the game is defined in layout_audio_match.xml and audio_match_item.xml.
  *
- * Game description: A descriptive intro sound is played and two related items are shown.
- *                   After the items have been selected by the user, the above is repeated.
- *                   This repeats until the end of the items list is reached and then the game
- *                   starts from the beginning.
+ * Game description: An intro sound is played and two to four items are shown.
+ *                   The player has to guess which item matches the intro sound.
+ *                   The intro sound can be played again by touching the big speaker phone image.
+ *                   If it's a match, then a new round is started.
  *
  * The game is implemented in the Activity class from which it will be run.
  *
  * How to implement the game:
- * - Two lists are needed: * Sound intros list
- *                         * Game items list
+ * - One list is needed: Memory cards items for respective category, called gameItems.
  *
- * - Initiate RecyclerView with Utilities.initGridRecyclerView(this, R.id.recycler_view_grid, 2).
+ * - Initiate RecyclerView with
+ *         GameUtils.initGridRecyclerView(this, R.id.recycler_view_audio_match, 2).
  *
- * - Create a new instance of the game with three arguments, recycleView, intros and gameItems.
+ * - Find and store the image view so that it can be set by the game
+ *         ImageView speakerPhoneView = findViewById(R.id.speaker_phone_image);
+ *
+ * - Create a new instance of the game with three arguments, recycleView, gameItems and imageView.
  *
  * - Create a new instance of the GameAdapter with three arguments, context, the list of actualItems
  *   that will be used during the game (obtained with repetitionGame.getActualItems()) and
@@ -49,9 +52,20 @@ import java.util.Collections;
  * - Set the adapter for the recyclerView with .setAdapter(adapter) and for the game with
  *   .useAdapter(adapter).
  *
- * - Use ItemClickSupport so that all objects that are selected triggers repetitionGame.selectItem(pos).
- *   Utilities.runOnTouchAnim(RepetitionActivity.this, v); should be run first, then
- *   run .selectItem(pos) with handler.postDelayed after Utilities.ON_TOUCH_ANIM_LENGTH.
+ * - Run slide up animations:
+ *          GameUtils.runSlideUpAnim(recyclerView, GameUtils.AUDIOMATCH);
+ *
+ * - Add ItemClickSupport via GameUtils:
+ *          GameUtils.addAudioMatchItemClickSupport(recyclerView, audioMatchGame);
+ *
+ * - Add the following in onPause() of the activity:
+ *           // Release the media player resources
+ *         SoundPlayback.releaseMediaPlayer();
+ *
+ *         if (isFinishing()) {
+ *             // Remove all pending posts of callbacks and sent messages.
+ *             audioMatchGame.removePendingPosts();
+ *         }
  *
  */
 public class AudioMatchGame {
