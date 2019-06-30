@@ -46,9 +46,21 @@ import java.util.ArrayList;
  * - Set the adapter for the recyclerView with .setAdapter(adapter) and for the game with
  *   .useAdapter(adapter).
  *
- * - Use ItemClickSupport so that all objects that are selected triggers repetitionGame.selectItem(pos).
- *   Utilities.runOnTouchAnim(RepetitionActivity.this, v); should be run first, then
- *   run .selectItem(pos) with handler.postDelayed after Utilities.ON_TOUCH_ANIM_LENGTH.
+ * - Run slide up animations:
+ *          GameUtils.runSlideUpAnim(recyclerView, GameUtils.REPETITION);
+ *
+ *
+ * - Add ItemClickSupport via GameUtils:
+ *          GameUtils.addAudioMatchItemClickSupport(recyclerView, repetitionGame);
+ *
+ * - Add the following in onPause() of the activity:
+ *           // Release the media player resources
+ *         SoundPlayback.releaseMediaPlayer();
+ *
+ *         if (isFinishing()) {
+ *             // Remove all pending posts of callbacks and sent messages.
+ *             audioMatchGame.removePendingPosts();
+ *         }
  *
  */
 public class RepetitionGame {
@@ -278,7 +290,8 @@ public class RepetitionGame {
     }
 
     /**
-     * Run the slide up layout animation for all items upon each new round.
+     * Run the slide up layout animation for all items.
+     * To be used in the beginning of every round.
      */
     private void runLayoutAnimation() {
         final LayoutAnimationController controller =
