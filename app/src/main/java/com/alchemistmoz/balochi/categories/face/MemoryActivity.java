@@ -57,7 +57,7 @@ public class MemoryActivity extends AppCompatActivity {
         memoryCards.add(new MemoryCard(R.drawable.face_memory_cheek, R.raw.colors_blue));
         memoryCards.add(new MemoryCard(R.drawable.face_memory_chin, R.raw.colors_yellow));
         memoryCards.add(new MemoryCard(R.drawable.face_memory_ear, R.raw.colors_orange));
-        memoryCards.add(new MemoryCard(R.drawable.face_memory_eyes2, R.raw.colors_brown));
+        memoryCards.add(new MemoryCard(R.drawable.face_memory_eyes, R.raw.colors_brown));
         memoryCards.add(new MemoryCard(R.drawable.face_memory_forehead, R.raw.colors_black));
         memoryCards.add(new MemoryCard(R.drawable.face_memory_mouth, R.raw.colors_white));
         memoryCards.add(new MemoryCard(R.drawable.face_memory_nose, R.raw.colors_grey));

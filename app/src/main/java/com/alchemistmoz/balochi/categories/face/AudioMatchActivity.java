@@ -57,7 +57,7 @@ public class AudioMatchActivity extends AppCompatActivity {
         gameItems.add(new GameItem(R.drawable.face_memory_nose, R.raw.colors_green));
         gameItems.add(new GameItem(R.drawable.face_memory_mouth, R.raw.colors_blue));
         gameItems.add(new GameItem(R.drawable.face_memory_forehead, R.raw.colors_yellow));
-        gameItems.add(new GameItem(R.drawable.face_memory_eyes2, R.raw.colors_orange));
+        gameItems.add(new GameItem(R.drawable.face_memory_eyes, R.raw.colors_orange));
         gameItems.add(new GameItem(R.drawable.face_memory_ear, R.raw.colors_brown));
         gameItems.add(new GameItem(R.drawable.face_memory_chin, R.raw.colors_black));
         gameItems.add(new GameItem(R.drawable.face_memory_cheek, R.raw.colors_white));
