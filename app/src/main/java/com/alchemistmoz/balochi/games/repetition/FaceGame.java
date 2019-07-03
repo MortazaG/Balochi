@@ -50,9 +50,6 @@ public class FaceGame {
     // The image map with the clickable areas
     private ImageView imageAreasView;
 
-    // To be used for delaying posts
-    private Handler handler;
-
     /**
      * Sets the game off by initiating default values.
      *
@@ -61,7 +58,8 @@ public class FaceGame {
     public FaceGame(ImageView imageAreasView) {
         this.imageAreasView = imageAreasView;
 
-        handler = new Handler();
+        // Make sure touch events are enabled at the beginning of the game
+        GameUtils.setTouchEnabled(true);
     }
 
     /**
@@ -114,6 +112,7 @@ public class FaceGame {
         if (closeMatch(Color.CYAN, touchColor)) SoundPlayback.play(context, R.raw.colors_blue);
 
         // Enable touch events after sound playback
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
