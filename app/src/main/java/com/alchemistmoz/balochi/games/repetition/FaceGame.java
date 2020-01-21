@@ -106,9 +106,9 @@ public class FaceGame {
         if (closeMatch(Color.BLUE, touchColor)) SoundPlayback.play(context, R.raw.colors_blue);
         if (closeMatch(Color.BLACK, touchColor)) SoundPlayback.play(context, R.raw.colors_black);
         if (closeMatch(Color.YELLOW, touchColor)) SoundPlayback.play(context, R.raw.colors_yellow);
-        if (closeMatch(Color.LTGRAY, touchColor)) SoundPlayback.play(context, R.raw.colors_grey);
+        if (closeMatch(Color.LTGRAY, touchColor)) SoundPlayback.play(context, R.raw.colors_white);
         if (closeMatch(Color.GRAY, touchColor)) SoundPlayback.play(context, R.raw.colors_grey);
-        if (closeMatch(Color.DKGRAY, touchColor)) SoundPlayback.play(context, R.raw.colors_grey);
+        if (closeMatch(Color.DKGRAY, touchColor)) SoundPlayback.play(context, R.raw.colors_black);
         if (closeMatch(Color.CYAN, touchColor)) SoundPlayback.play(context, R.raw.colors_blue);
 
         // Enable touch events after sound playback
