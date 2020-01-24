@@ -171,10 +171,23 @@ public class AudioMatchGame {
 
                 if (GameUtils.isTouchEnabled()) {
 
+                    // Disable further touch events
+                    GameUtils.setTouchEnabled(false);
+
                     Utilities.runOnTouchAnim(context, speakerPhoneView);
 
                     // Initialize playback of the sound of the correctItem
                     SoundPlayback.play(context, speakerPhoneObject.getAudioResourceID());
+
+                    // Enable touch events after playback is finished
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            GameUtils.setTouchEnabled(true);
+
+                        }
+                    }, SoundPlayback.getSoundDuration());
                 }
             }
         });
