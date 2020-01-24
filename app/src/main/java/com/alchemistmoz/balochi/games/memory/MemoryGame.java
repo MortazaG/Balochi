@@ -239,7 +239,7 @@ public class MemoryGame {
 
             // selectionOne > 0 true indicates that one card has already been selected,
             // second card is being selected.
-        } else if (selectionOne > 0 && selectionTwo < 0) {
+        } else if (selectionOne > 0 && selectionTwo < 0 && positionOne != position) {
 
             // Reveal the card at the selected position
             memoryCardPlaceholders.get(position).setImageResourceID(selectedCard.getImageResourceID());
