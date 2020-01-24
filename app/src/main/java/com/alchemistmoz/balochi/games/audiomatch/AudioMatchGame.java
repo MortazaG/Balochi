@@ -266,12 +266,12 @@ public class AudioMatchGame {
             // Store the resource id for the selected item
             selectedItemId = selectedItem.getAudioResourceID();
 
-            // Check game status and enable touch events after sound playback
+            // Check game status, touch events are enabled again
+            // somewhere along the line in checkSelections().
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
 
-                    GameUtils.setTouchEnabled(true);
                     checkSelections();
 
                 }
@@ -296,6 +296,16 @@ public class AudioMatchGame {
 
             // Reset the current selection
             selectedItemId = 0;
+
+            // Enable touch events because the wrong answer was given
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    GameUtils.setTouchEnabled(true);
+
+                }
+            }, SoundPlayback.getSoundDuration());
         }
     }
 
