@@ -190,6 +190,11 @@ public class MemoryGame {
      */
     public void selectCard(int position) {
 
+        // "Catch" ArrayIndexOutOfBoundsException when index = -1
+        // and basically make the selection void.
+        if (position == -1) return;
+
+        // Store the memory card that the user has selected
         MemoryCard selectedCard = memoryCardItems.get(position);
 
         if (GameUtils.isTouchEnabled()) {

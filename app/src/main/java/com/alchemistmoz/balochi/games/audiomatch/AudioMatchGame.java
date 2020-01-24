@@ -263,6 +263,10 @@ public class AudioMatchGame {
      */
     public void selectItem(final int position, View view) {
 
+        // "Catch" ArrayIndexOutOfBoundsException when index = -1
+        // and basically make the selection void.
+        if (position == -1) return;
+
         // Store the gameItem that the user has currently selected
         GameItem selectedItem = actualItems.get(position);
 
