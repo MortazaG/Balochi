@@ -118,6 +118,8 @@ public class CountGame {
         count = 0;
         countGoal = 1;
 
+        handler = new Handler();
+
         // Initiate the lists that will be used for the game
         initiateLists();
 
@@ -220,10 +222,24 @@ public class CountGame {
 
                 if (GameUtils.isTouchEnabled()) {
 
+                    // Disable further touch events
+                    GameUtils.setTouchEnabled(false);
+
                     Utilities.runOnTouchAnim(context, numberImage);
 
                     // Initialize playback of the sound related to the current count
                     SoundPlayback.play(context, currentNumberItem.getAudioResourceID());
+
+                    // Enable touch events after playback is finished
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            GameUtils.setTouchEnabled(true);
+
+                        }
+                    }, SoundPlayback.getSoundDuration());
+
                 }
             }
         });
@@ -271,8 +287,6 @@ public class CountGame {
             selectedItem.setSelected(true);
 
             // Execute the following after sound playback
-            handler = new Handler();
-
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
