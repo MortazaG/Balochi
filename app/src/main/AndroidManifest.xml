@@ -42,22 +42,22 @@
             android:parentActivityName=".categories.numbers.NumbersActivity"
             android:screenOrientation="sensorLandscape" />
 
-        <!-- Colors Activity -->
+        <!-- Face Activity -->
         <activity
-            android:name=".categories.colors.ColorsActivity"
+            android:name=".categories.face.FaceActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".categories.colors.RepetitionActivity"
-            android:parentActivityName=".categories.colors.ColorsActivity"
+            android:name=".categories.face.RepetitionActivity"
+            android:parentActivityName=".categories.face.FaceActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".categories.colors.MemoryActivity"
-            android:parentActivityName=".categories.colors.ColorsActivity"
+            android:name=".categories.face.MemoryActivity"
+            android:parentActivityName=".categories.face.FaceActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".categories.colors.AudioMatchActivity"
-            android:parentActivityName=".categories.colors.ColorsActivity"
+            android:name=".categories.face.AudioMatchActivity"
+            android:parentActivityName=".categories.face.FaceActivity"
             android:screenOrientation="sensorLandscape" />
 
         <!-- Family Activity -->
@@ -76,6 +76,24 @@
         <activity
             android:name=".categories.family.AudioMatchActivity"
             android:parentActivityName=".categories.family.FamilyActivity"
+            android:screenOrientation="sensorLandscape" />
+
+        <!-- Colors Activity -->
+        <activity
+            android:name=".categories.colors.ColorsActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".categories.colors.RepetitionActivity"
+            android:parentActivityName=".categories.colors.ColorsActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".categories.colors.MemoryActivity"
+            android:parentActivityName=".categories.colors.ColorsActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".categories.colors.AudioMatchActivity"
+            android:parentActivityName=".categories.colors.ColorsActivity"
             android:screenOrientation="sensorLandscape" />
 
         <!-- FruitVeggies Activity -->

@@ -21,7 +21,7 @@ import com.alchemistmoz.balochi.games.repetition.RepetitionGame;
  */
 public final class GameUtils {
 
-    // All the available games
+    // All the available games for animation purposes
     public final static int REPETITION = 0;
     public final static int COUNT = 1;
     public final static int MEMORY = 2;

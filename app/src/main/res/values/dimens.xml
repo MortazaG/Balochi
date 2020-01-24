@@ -6,6 +6,7 @@
     <dimen name="countImage">180dp</dimen>
     <dimen name="audioMatchItem">160dp</dimen>
     <dimen name="audioMatchImage">150dp</dimen>
+    <dimen name="faceItem">48dp</dimen>
 
     <dimen name="standardMargin">32dp</dimen>
     <dimen name="toolbarItem">50dp</dimen>

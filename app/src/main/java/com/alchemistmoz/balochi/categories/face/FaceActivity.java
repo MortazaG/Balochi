@@ -1,25 +1,19 @@
-package com.alchemistmoz.balochi;
+package com.alchemistmoz.balochi.categories.face;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
-import com.alchemistmoz.balochi.categories.colors.ColorsActivity;
-import com.alchemistmoz.balochi.categories.face.FaceActivity;
-import com.alchemistmoz.balochi.categories.family.FamilyActivity;
-import com.alchemistmoz.balochi.categories.fruitveggies.FruitVeggiesActivity;
-import com.alchemistmoz.balochi.categories.numbers.NumbersActivity;
+import com.alchemistmoz.balochi.Category;
+import com.alchemistmoz.balochi.MainAdapter;
+import com.alchemistmoz.balochi.R;
 import com.alchemistmoz.balochi.misc.CustomToolbar;
 import com.alchemistmoz.balochi.misc.SoundPlayback;
 import com.alchemistmoz.balochi.misc.Utilities;
 
 import java.util.ArrayList;
 
-/**
- * SoundPlayback.initializeManagerService(getApplicationContext()); needs to be called in
- * all the activities of the app, in order to allow for sound playback.
- */
-public class MainActivity extends AppCompatActivity {
+public class FaceActivity extends AppCompatActivity {
 
     // Make recyclerView global so that animations can be run from onResume
     RecyclerView recyclerView;
@@ -30,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.layout_list);
 
         // Initiate and setup custom toolbar
-        CustomToolbar toolbar = new CustomToolbar(MainActivity.this);
-        toolbar.initBasicToolbar();
+        CustomToolbar toolbar = new CustomToolbar(FaceActivity.this);
+        toolbar.initCategoryToolbar();
 
         // Initialize the Audio Manager AUDIO_SERVICE
         SoundPlayback.initializeManagerService(this);
@@ -41,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Utilities.addMenuItemClickSupport(recyclerView);
 
     }
+
 
     /**
      * Initiate the menu with:
@@ -55,23 +50,17 @@ public class MainActivity extends AppCompatActivity {
         final ArrayList<Category> categories = new ArrayList<>();
 
         // Add new Category objects to the ArrayList
-        categories.add(new Category(R.drawable.numbers5, R.raw.menu_numbers, NumbersActivity.class));
-        categories.add(new Category(R.drawable.colors3, R.raw.menu_colors, ColorsActivity.class));
-        categories.add(new Category(R.drawable.face_item, R.raw.menu_repetition, FaceActivity.class));
-        categories.add(new Category(R.drawable.family1, R.raw.menu_family, FamilyActivity.class));
-        categories.add(new Category(R.drawable.fruitveggies1, R.raw.menu_fruitveggies, FruitVeggiesActivity.class));
+        categories.add(new Category(R.drawable.face_item, R.raw.menu_repetition, RepetitionActivity.class));
+        categories.add(new Category(R.drawable.face_menu_memory, R.raw.menu_memory, MemoryActivity.class));
+        categories.add(new Category(R.drawable.face_menu_audiomatch, R.raw.menu_repetition, AudioMatchActivity.class));
 
-        // Setup the recycler view with the id of the recycler view to be used and type of layout
+        // Setup the recycler view
         recyclerView = Utilities.initLinearRecyclerView(this, R.id.recycler_view_list);
 
-        // Instantiate an adapter with the given data set
-        MainAdapter adapter = new MainAdapter(this, categories);
-
-        // Specify an adapter
+        final MainAdapter adapter = new MainAdapter(this, categories);
         recyclerView.setAdapter(adapter);
 
         Utilities.runSlideLeftAnim(recyclerView);
-
     }
 
     /**
@@ -91,5 +80,4 @@ public class MainActivity extends AppCompatActivity {
         // Enable all touch events (in case touch was disabled right before onPause)
         Utilities.setTouchEnabled(true);
     }
-
 }
