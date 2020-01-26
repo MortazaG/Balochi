@@ -349,7 +349,9 @@ public class CountGame {
             // Play long celebration sound
             playCelebrationSound(R.raw.celebration_short);
 
-            resetGame();
+            // Reset the initial values for count and countGoal.
+            count = 0;
+            countGoal = 1;
 
         } else if (countGoal < 10) {
 
@@ -413,14 +415,6 @@ public class CountGame {
 
         recyclerView.setLayoutAnimation(controller);
         recyclerView.scheduleLayoutAnimation();
-    }
-
-    /**
-     * Reset the initial values for count and countGoal.
-     */
-    private void resetGame() {
-        count = 0;
-        countGoal = 1;
     }
 
     /**
